@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Browse curated auction categories at Ankand. Fine art, luxury watches, jewelry, antiques, and more.">
+    <title>Categories | Ankand — Gjeni & Shitet</title>
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/utilities.css">
+
+    <style>
+        /* Editorial Category Grid */
+        .categories-hero {
+            background: var(--bg-primary);
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .categories-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: var(--space-md);
+        }
+
+        .categories-hero p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+
+        @media (max-width: 991px) {
+            .editorial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 575px) {
+            .editorial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .category-tile {
+            position: relative;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2xl);
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .category-tile:hover {
+            transform: scale(1.02);
+            z-index: 2;
+        }
+
+        /* Color variations for museum-style tiles */
+        .category-tile.tile-gold {
+            background: var(--primary-gold);
+        }
+
+        .category-tile.tile-gold .tile-title,
+        .category-tile.tile-gold .tile-count {
+            color: var(--bg-primary);
+        }
+
+        .category-tile.tile-dark {
+            background: var(--bg-primary);
+        }
+
+        .category-tile.tile-dark .tile-title {
+            color: var(--text-primary);
+        }
+
+        .category-tile.tile-dark .tile-count {
+            color: var(--primary-gold);
+        }
+
+        .category-tile.tile-soft {
+            background: var(--primary-gold-soft);
+        }
+
+        .category-tile.tile-soft .tile-title,
+        .category-tile.tile-soft .tile-count {
+            color: var(--bg-primary);
+        }
+
+        .category-tile.tile-secondary {
+            background: var(--bg-secondary);
+        }
+
+        .category-tile.tile-secondary .tile-title {
+            color: var(--text-primary);
+        }
+
+        .category-tile.tile-secondary .tile-count {
+            color: var(--primary-gold);
+        }
+
+        .category-tile.tile-light {
+            background: var(--primary-gold-light);
+        }
+
+        .category-tile.tile-light .tile-title,
+        .category-tile.tile-light .tile-count {
+            color: var(--bg-primary);
+        }
+
+        .tile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: var(--space-lg);
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            transition: transform var(--transition-base);
+        }
+
+        .category-tile:hover .tile-image {
+            transform: scale(1.1);
+        }
+
+        .tile-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .tile-count {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- Left: Navigation Links -->
+            <ul class="navbar-nav" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="live.html" class="nav-link">Auctions</a></li>
+                <li><a href="categories.html" class="nav-link active">Categories</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <!-- Mobile Nav Actions -->
+                <div class="mobile-nav-actions">
+                    <a href="login.html" class="btn btn-nav-outline">Login</a>
+                    <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
+                    <a href="live.html" class="btn-join-live">Join Live</a>
+                </div>
+            </ul>
+
+            <!-- Center: Logo -->
+            <a href="index.html" class="navbar-brand">
+                <img src="images/logo.svg" alt="Ankand Logo" class="navbar-logo-icon">
+                <div>
+                    <div class="navbar-logo">Ankand</div>
+                    <div class="navbar-tagline">Gjeni & Shitet</div>
+                </div>
+            </a>
+
+            <!-- Right: Actions -->
+            <div class="navbar-actions">
+                <a href="login.html" class="btn btn-nav-outline">Login</a>
+                <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
+                <a href="live.html" class="btn-join-live">Join Live</a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Categories Hero -->
+    <section class="categories-hero">
+        <div class="container">
+            <h1>Explore <span class="text-gold">Categories</span></h1>
+            <p>Discover curated collections across diverse categories, each hand-selected for quality and authenticity.
+            </p>
+        </div>
+    </section>
+
+    <!-- Editorial Category Grid -->
+    <section class="editorial-grid">
+        <a href="live.html?category=art" class="category-tile tile-gold">
+            <img src="https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?w=200&h=200&fit=crop" alt="Art"
+                class="tile-image">
+            <h2 class="tile-title">Art</h2>
+            <span class="tile-count">89 Items</span>
+        </a>
+
+        <a href="live.html?category=asian-art" class="category-tile tile-dark">
+            <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=200&h=200&fit=crop" alt="Asian Art"
+                class="tile-image">
+            <h2 class="tile-title">Asian & Tribal Art</h2>
+            <span class="tile-count">45 Items</span>
+        </a>
+
+        <a href="live.html?category=coins" class="category-tile tile-soft">
+            <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=200&h=200&fit=crop" alt="Coins"
+                class="tile-image">
+            <h2 class="tile-title">Coins & Stamps</h2>
+            <span class="tile-count">156 Items</span>
+        </a>
+
+        <a href="live.html?category=watches" class="category-tile tile-secondary">
+            <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=200&h=200&fit=crop" alt="Watches"
+                class="tile-image">
+            <h2 class="tile-title">Watches, Pens & Lighters</h2>
+            <span class="tile-count">124 Items</span>
+        </a>
+
+        <a href="live.html?category=wine" class="category-tile tile-light">
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=200&h=200&fit=crop" alt="Wine"
+                class="tile-image">
+            <h2 class="tile-title">Wine, Whisky & Spirits</h2>
+            <span class="tile-count">67 Items</span>
+        </a>
+
+        <a href="live.html?category=jewelry" class="category-tile tile-gold">
+            <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=200&h=200&fit=crop" alt="Jewelry"
+                class="tile-image">
+            <h2 class="tile-title">Jewelry</h2>
+            <span class="tile-count">198 Items</span>
+        </a>
+
+        <a href="live.html?category=antiques" class="category-tile tile-dark">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop" alt="Antiques"
+                class="tile-image">
+            <h2 class="tile-title">Antiques</h2>
+            <span class="tile-count">78 Items</span>
+        </a>
+
+        <a href="live.html?category=cars" class="category-tile tile-soft">
+            <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=200&h=200&fit=crop" alt="Classic Cars"
+                class="tile-image">
+            <h2 class="tile-title">Classic Cars</h2>
+            <span class="tile-count">34 Items</span>
+        </a>
+
+        <a href="live.html?category=books" class="category-tile tile-secondary">
+            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=200&h=200&fit=crop" alt="Books"
+                class="tile-image">
+            <h2 class="tile-title">Rare Books</h2>
+            <span class="tile-count">52 Items</span>
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo-wrapper">
+                        <img src="images/logo.svg" alt="Ankand" class="footer-logo-icon">
+                        <div class="footer-logo-content">
+                            <span class="footer-logo">Ankand</span>
+                            <span class="footer-tagline">Gjeni & Shitet</span>
+                        </div>
+                    </div>
+                    <p class="footer-description">Albania's premier online auction marketplace for luxury items,
+                        antiques, and collectors' treasures.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <nav class="footer-nav">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="auctions.html">Browse Auctions</a></li>
+                        <li><a href="#">Sell With Us</a></li>
+                        <li><a href="#">How to Bid</a></li>
+                        <li><a href="#">Buyer Guide</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="footer-nav">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#">Luxury Watches</a></li>
+                        <li><a href="#">Fine Art</a></li>
+                        <li><a href="#">Jewelry</a></li>
+                        <li><a href="#">Antiques</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="footer-nav">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns Policy</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ankand. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

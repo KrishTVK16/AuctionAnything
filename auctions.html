@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Browse live auctions at Ankand. Bid on luxury watches, fine art, jewelry, antiques and more.">
+    <title>Live Auctions | Ankand — Gjeni & Shitet</title>
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/utilities.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="images/logo.svg" alt="Ankand Logo" class="navbar-logo-icon">
+                <div>
+                    <div class="navbar-logo">Ankand</div>
+                    <div class="navbar-tagline">Gjeni & Shitet</div>
+                </div>
+            </a>
+            <ul class="navbar-nav" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="auctions.html" class="nav-link active">Auctions</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="navbar-actions">
+                <a href="#" class="btn btn-secondary btn-sm">Login</a>
+                <a href="#" class="btn btn-primary btn-sm">Register</a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Live <span class="text-gold">Auctions</span></h1>
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Auctions</span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Auctions Listing -->
+    <section class="section">
+        <div class="container">
+            <!-- Filters -->
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <select class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="watches">Luxury Watches</option>
+                        <option value="art">Fine Art</option>
+                        <option value="jewelry">Jewelry</option>
+                        <option value="antiques">Antiques</option>
+                        <option value="cars">Classic Cars</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="">Price Range</option>
+                        <option value="0-1000">€0 - €1,000</option>
+                        <option value="1000-5000">€1,000 - €5,000</option>
+                        <option value="5000-10000">€5,000 - €10,000</option>
+                        <option value="10000+">€10,000+</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="">Status</option>
+                        <option value="live">Live Now</option>
+                        <option value="ending">Ending Soon</option>
+                        <option value="upcoming">Upcoming</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">Showing 12 of 156 auctions</span>
+                </div>
+            </div>
+
+            <!-- Auctions Grid -->
+            <div class="featured-grid">
+                <!-- Auction 1 -->
+                <a href="auction-detail.html" class="card auction-card" data-animate>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&h=450&fit=crop"
+                            alt="Vintage Rolex Watch">
+                        <span class="auction-badge live">Live</span>
+                        <div class="auction-timer" data-end="2025-12-14T18:00:00">
+                            <div class="timer-block"><span class="timer-value days">00</span><span
+                                    class="timer-label">Days</span></div>
+                            <div class="timer-block"><span class="timer-value hours">00</span><span
+                                    class="timer-label">Hrs</span></div>
+                            <div class="timer-block"><span class="timer-value minutes">00</span><span
+                                    class="timer-label">Min</span></div>
+                            <div class="timer-block"><span class="timer-value seconds">00</span><span
+                                    class="timer-label">Sec</span></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">1965 Rolex Submariner</h3>
+                        <p class="card-text">Rare vintage timepiece in exceptional condition.</p>
+                        <div class="auction-info">
+                            <div>
+                                <div class="current-bid-label">Current Bid</div>
+                                <div class="current-bid-amount">€12,500</div>
+                            </div>
+                            <div class="bid-count">23 bids</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Auction 2 -->
+                <a href="auction-detail.html" class="card auction-card" data-animate>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=450&fit=crop"
+                            alt="Abstract Painting">
+                        <span class="auction-badge live">Live</span>
+                        <div class="auction-timer" data-end="2025-12-15T12:00:00">
+                            <div class="timer-block"><span class="timer-value days">00</span><span
+                                    class="timer-label">Days</span></div>
+                            <div class="timer-block"><span class="timer-value hours">00</span><span
+                                    class="timer-label">Hrs</span></div>
+                            <div class="timer-block"><span class="timer-value minutes">00</span><span
+                                    class="timer-label">Min</span></div>
+                            <div class="timer-block"><span class="timer-value seconds">00</span><span
+                                    class="timer-label">Sec</span></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Abstract Expressionist Oil</h3>
+                        <p class="card-text">Original oil on canvas by Albanian artist, 1978.</p>
+                        <div class="auction-info">
+                            <div>
+                                <div class="current-bid-label">Current Bid</div>
+                                <div class="current-bid-amount">€8,200</div>
+                            </div>
+                            <div class="bid-count">15 bids</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Auction 3 -->
+                <a href="auction-detail.html" class="card auction-card" data-animate>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=450&fit=crop"
+                            alt="Diamond Necklace">
+                        <span class="auction-badge live">Live</span>
+                        <div class="auction-timer" data-end="2025-12-16T20:00:00">
+                            <div class="timer-block"><span class="timer-value days">00</span><span
+                                    class="timer-label">Days</span></div>
+                            <div class="timer-block"><span class="timer-value hours">00</span><span
+                                    class="timer-label">Hrs</span></div>
+                            <div class="timer-block"><span class="timer-value minutes">00</span><span
+                                    class="timer-label">Min</span></div>
+                            <div class="timer-block"><span class="timer-value seconds">00</span><span
+                                    class="timer-label">Sec</span></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Art Deco Diamond Necklace</h3>
+                        <p class="card-text">1920s platinum and diamond piece with certification.</p>
+                        <div class="auction-info">
+                            <div>
+                                <div class="current-bid-label">Current Bid</div>
+                                <div class="current-bid-amount">€24,800</div>
+                            </div>
+                            <div class="bid-count">31 bids</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Auction 4 -->
+                <a href="auction-detail.html" class="card auction-card" data-animate>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&h=450&fit=crop"
+                            alt="Classic Ferrari">
+                        <span class="auction-badge" style="color: var(--accent-warning);">Ending Soon</span>
+                        <div class="auction-timer" data-end="2025-12-13T20:00:00">
+                            <div class="timer-block"><span class="timer-value days">00</span><span
+                                    class="timer-label">Days</span></div>
+                            <div class="timer-block"><span class="timer-value hours">00</span><span
+                                    class="timer-label">Hrs</span></div>
+                            <div class="timer-block"><span class="timer-value minutes">00</span><span
+                                    class="timer-label">Min</span></div>
+                            <div class="timer-block"><span class="timer-value seconds">00</span><span
+                                    class="timer-label">Sec</span></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">1962 Ferrari 250 GTO</h3>
+                        <p class="card-text">Matching numbers, full restoration documentation.</p>
+                        <div class="auction-info">
+                            <div>
+                                <div class="current-bid-label">Current Bid</div>
+                                <div class="current-bid-amount">€485,000</div>
+                            </div>
+                            <div class="bid-count">47 bids</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Auction 5 -->
+                <a href="auction-detail.html" class="card auction-card" data-animate>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551817958-20204d6ab212?w=600&h=450&fit=crop"
+                            alt="Antique Furniture">
+                        <span class="auction-badge live">Live</span>
+                        <div class="auction-timer" data-end="2025-12-17T15:00:00">
+                            <div class="timer-block"><span class="timer-value days">00</span><span
+                                    class="timer-label">Days</span></div>
+                            <div class="timer-block"><span class="timer-value hours">00</span><span
+                                    class="timer-label">Hrs</span></div>
+                            <div class="timer-block"><span class="timer-value minutes">00</span><span
+                                    class="timer-label">Min</span></div>
+                            <div class="timer-block"><span class="timer-value seconds">00</span><span
+                                    class="timer-label">Sec</span></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">18th Century Ottoman Bureau</h3>
+                        <p class="card-text">Rare inlaid walnut desk with provenance.</p>
+                        <div class="auction-info">
+                            <div>
+                                <div class="current-bid-label">Current Bid</div>
+                                <div class="current-bid-amount">€6,750</div>
+                            </div>
+                            <div class="bid-count">12 bids</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Auction 6 -->
+                <a href="auction-detail.html" class="card auction-card" data-animate>
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=600&h=450&fit=crop"
+                            alt="Vintage Camera">
+                        <span class="auction-badge live">Live</span>
+                        <div class="auction-timer" data-end="2025-12-18T10:00:00">
+                            <div class="timer-block"><span class="timer-value days">00</span><span
+                                    class="timer-label">Days</span></div>
+                            <div class="timer-block"><span class="timer-value hours">00</span><span
+                                    class="timer-label">Hrs</span></div>
+                            <div class="timer-block"><span class="timer-value minutes">00</span><span
+                                    class="timer-label">Min</span></div>
+                            <div class="timer-block"><span class="timer-value seconds">00</span><span
+                                    class="timer-label">Sec</span></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Leica M3 Double Stroke</h3>
+                        <p class="card-text">Pristine condition with original Summicron lens.</p>
+                        <div class="auction-info">
+                            <div>
+                                <div class="current-bid-label">Current Bid</div>
+                                <div class="current-bid-amount">€3,400</div>
+                            </div>
+                            <div class="bid-count">8 bids</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Pagination -->
+            <nav class="d-flex justify-center gap-2 mt-4" aria-label="Auction pagination">
+                <button class="btn btn-dark btn-sm" disabled>&laquo; Previous</button>
+                <button class="btn btn-primary btn-sm">1</button>
+                <button class="btn btn-dark btn-sm">2</button>
+                <button class="btn btn-dark btn-sm">3</button>
+                <button class="btn btn-dark btn-sm">Next &raquo;</button>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">Ankand</div>
+                    <p class="footer-description">Albania's premier online auction marketplace for luxury items,
+                        antiques, and collectors' treasures.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+                <nav class="footer-nav">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="auctions.html">Browse Auctions</a></li>
+                        <li><a href="#">Sell With Us</a></li>
+                        <li><a href="#">How to Bid</a></li>
+                    </ul>
+                </nav>
+                <nav class="footer-nav">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#">Luxury Watches</a></li>
+                        <li><a href="#">Fine Art</a></li>
+                        <li><a href="#">Jewelry</a></li>
+                    </ul>
+                </nav>
+                <nav class="footer-nav">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ankand. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

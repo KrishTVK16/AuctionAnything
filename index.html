@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Ankand - Gjeni & Shitet. Platforma premium e ankandeve online në Shqipëri. Blini dhe shisni objekte të veçanta.">
+  <title>Ankand — Gjeni & Shitet | Premium Online Auctions</title>
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/utilities.css">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <!-- Left: Navigation Links -->
+      <ul class="navbar-nav" id="navMenu">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="live.html" class="nav-link">Auctions</a></li>
+        <li><a href="categories.html" class="nav-link">Categories</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+        <!-- Mobile Nav Actions -->
+        <div class="mobile-nav-actions">
+          <a href="login.html" class="btn btn-nav-outline">Login</a>
+          <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
+          <a href="live.html" class="btn-join-live">Join Live</a>
+        </div>
+      </ul>
+
+      <!-- Center: Logo -->
+      <a href="index.html" class="navbar-brand">
+        <img src="images/logo.svg" alt="Ankand Logo" class="navbar-logo-icon">
+        <div>
+          <div class="navbar-logo">Ankand</div>
+          <div class="navbar-tagline">Gjeni & Shitet</div>
+        </div>
+      </a>
+
+      <!-- Right: Actions -->
+      <div class="navbar-actions">
+        <a href="login.html" class="btn btn-nav-outline">Login</a>
+        <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
+        <a href="live.html" class="btn-join-live">Join Live</a>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section - Yellow Gradient -->
+  <section class="hero hero-yellow">
+    <div class="hero-background-yellow"></div>
+    <div class="container">
+      <div class="hero-content hero-content-dark">
+        <span class="hero-label hero-label-dark">
+          <i class="bi bi-lightning-charge-fill"></i>
+          Live Auctions Now
+        </span>
+        <h1 class="hero-title hero-title-dark">
+          Live Auctions with <span class="text-dark-accent">Real-Time</span> Competitive Bidding
+        </h1>
+        <p class="hero-description hero-description-dark">
+          Join Albania's premier curated auction marketplace. Bid on verified luxury items, fine art,
+          antiques, and exclusive collectibles with complete trust and transparency.
+        </p>
+        <div class="hero-actions">
+          <a href="live.html" class="btn btn-dark btn-lg">
+            <i class="bi bi-hammer"></i>
+            Join Live Auctions
+          </a>
+          <a href="categories.html" class="btn btn-outline-dark btn-lg">
+            Browse Categories
+          </a>
+        </div>
+
+        <div class="hero-stats hero-stats-dark">
+          <div class="stat-item">
+            <div class="stat-value stat-value-dark">2,500+</div>
+            <div class="stat-label stat-label-dark">Active Bidders</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value stat-value-dark">€15M+</div>
+            <div class="stat-label stat-label-dark">Total Sales</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value stat-value-dark">98%</div>
+            <div class="stat-label stat-label-dark">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Auctions -->
+  <section class="section" id="featured">
+    <div class="container">
+      <div class="section-header">
+        <h2>Featured <span class="text-gold">Auctions</span></h2>
+        <p>Don't miss these exclusive items with bids ending soon</p>
+      </div>
+
+      <div class="featured-grid">
+        <!-- Auction Card 1 -->
+        <div class="card auction-card" data-animate>
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&h=450&fit=crop"
+              alt="Vintage Rolex Watch">
+            <span class="auction-badge live-now">Live Now</span>
+            <div class="auction-timer" data-end="2025-12-14T18:00:00">
+              <div class="timer-block"><span class="timer-value days">00</span><span class="timer-label">Days</span>
+              </div>
+              <div class="timer-block"><span class="timer-value hours">00</span><span class="timer-label">Hrs</span>
+              </div>
+              <div class="timer-block"><span class="timer-value minutes">00</span><span class="timer-label">Min</span>
+              </div>
+              <div class="timer-block"><span class="timer-value seconds">00</span><span class="timer-label">Sec</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">1965 Rolex Submariner</h3>
+            <p class="card-text">Rare vintage timepiece in exceptional condition with original box and papers.</p>
+            <div class="auction-info">
+              <div>
+                <div class="current-bid-label">Current Bid</div>
+                <div class="current-bid-amount">€12,500</div>
+              </div>
+              <div class="bid-count">23 bids</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auction Card 2 -->
+        <div class="card auction-card" data-animate>
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=450&fit=crop"
+              alt="Abstract Oil Painting">
+            <span class="auction-badge hot-bid">Hot Bid</span>
+            <div class="auction-timer" data-end="2025-12-15T12:00:00">
+              <div class="timer-block"><span class="timer-value days">00</span><span class="timer-label">Days</span>
+              </div>
+              <div class="timer-block"><span class="timer-value hours">00</span><span class="timer-label">Hrs</span>
+              </div>
+              <div class="timer-block"><span class="timer-value minutes">00</span><span class="timer-label">Min</span>
+              </div>
+              <div class="timer-block"><span class="timer-value seconds">00</span><span class="timer-label">Sec</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Abstract Expressionist Oil</h3>
+            <p class="card-text">Original oil on canvas by renowned Albanian artist, signed and dated 1978.</p>
+            <div class="auction-info">
+              <div>
+                <div class="current-bid-label">Current Bid</div>
+                <div class="current-bid-amount">€8,200</div>
+              </div>
+              <div class="bid-count">15 bids</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auction Card 3 -->
+        <div class="card auction-card" data-animate>
+          <div class="card-image">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=450&fit=crop"
+              alt="Antique Jewelry">
+            <span class="auction-badge ending-soon">Ending Soon</span>
+            <div class="auction-timer" data-end="2025-12-16T20:00:00">
+              <div class="timer-block"><span class="timer-value days">00</span><span class="timer-label">Days</span>
+              </div>
+              <div class="timer-block"><span class="timer-value hours">00</span><span class="timer-label">Hrs</span>
+              </div>
+              <div class="timer-block"><span class="timer-value minutes">00</span><span class="timer-label">Min</span>
+              </div>
+              <div class="timer-block"><span class="timer-value seconds">00</span><span class="timer-label">Sec</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Art Deco Diamond Necklace</h3>
+            <p class="card-text">Stunning 1920s platinum and diamond necklace with original certification.</p>
+            <div class="auction-info">
+              <div>
+                <div class="current-bid-label">Current Bid</div>
+                <div class="current-bid-amount">€24,800</div>
+              </div>
+              <div class="bid-count">31 bids</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="live.html" class="btn btn-secondary">View All Auctions <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Ankand -->
+  <section class="why-ankand section" id="why-ankand">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Choose <span class="text-gold">Ankand</span></h2>
+        <p>Trust, verification, and secure bidding at its finest</p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card" data-animate>
+          <div class="why-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h3 class="why-title">Verified Authenticity</h3>
+          <p class="why-description">Every item undergoes rigorous authentication by expert appraisers before being
+            listed on our platform.</p>
+        </div>
+
+        <div class="why-card" data-animate>
+          <div class="why-icon">
+            <i class="bi bi-lock"></i>
+          </div>
+          <h3 class="why-title">Secure Bidding</h3>
+          <p class="why-description">Bank-grade encryption and secure payment processing protect every transaction on
+            our platform.</p>
+        </div>
+
+        <div class="why-card" data-animate>
+          <div class="why-icon">
+            <i class="bi bi-award"></i>
+          </div>
+          <h3 class="why-title">Curated Excellence</h3>
+          <p class="why-description">Our experts hand-select only the finest pieces, ensuring quality and value for
+            discerning collectors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section" id="how-it-works" style="background: var(--bg-secondary);">
+    <div class="container">
+      <div class="section-header">
+        <h2>How It <span class="text-gold">Works</span></h2>
+        <p>Start bidding in three simple steps</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card" data-animate>
+          <div class="step-number">1</div>
+          <h3 class="step-title">Create Account</h3>
+          <p class="step-description">Sign up for free and verify your identity to start bidding on exclusive items.</p>
+        </div>
+
+        <div class="step-card" data-animate>
+          <div class="step-number">2</div>
+          <h3 class="step-title">Place Your Bid</h3>
+          <p class="step-description">Browse curated auctions and place competitive bids on items you love.</p>
+        </div>
+
+        <div class="step-card" data-animate>
+          <div class="step-number">3</div>
+          <h3 class="step-title">Win & Receive</h3>
+          <p class="step-description">Win the auction, complete payment, and receive your item with secure shipping.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <h2>Popular <span class="text-gold">Categories</span></h2>
+        <p>Explore our curated collection of premium items</p>
+      </div>
+
+      <div class="categories-grid">
+        <div class="category-card" data-animate>
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=530&fit=crop" alt="Watches">
+          <div class="category-overlay">
+            <h4 class="category-name">Luxury Watches</h4>
+            <span class="category-count">124 items</span>
+          </div>
+        </div>
+
+        <div class="category-card" data-animate>
+          <img src="https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1?w=400&h=530&fit=crop" alt="Art">
+          <div class="category-overlay">
+            <h4 class="category-name">Fine Art</h4>
+            <span class="category-count">89 items</span>
+          </div>
+        </div>
+
+        <div class="category-card" data-animate>
+          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=530&fit=crop" alt="Jewelry">
+          <div class="category-overlay">
+            <h4 class="category-name">Jewelry</h4>
+            <span class="category-count">156 items</span>
+          </div>
+        </div>
+
+        <div class="category-card" data-animate>
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=530&fit=crop" alt="Antiques">
+          <div class="category-overlay">
+            <h4 class="category-name">Antiques</h4>
+            <span class="category-count">78 items</span>
+          </div>
+        </div>
+
+        <div class="category-card" data-animate>
+          <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=400&h=530&fit=crop" alt="Automobiles">
+          <div class="category-overlay">
+            <h4 class="category-name">Classic Cars</h4>
+            <span class="category-count">34 items</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section" style="background: var(--bg-secondary);">
+    <div class="container">
+      <div class="section-header">
+        <h2>What Our <span class="text-gold">Clients Say</span></h2>
+        <p>Trusted by collectors and sellers across Albania</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card" data-animate>
+          <p class="testimonial-quote">The authentication process gave me complete confidence. I acquired a stunning
+            vintage Patek Philippe that exceeded my expectations.</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+              alt="Arben Krasniqi" class="author-avatar">
+            <div>
+              <div class="author-name">Arben Krasniqi</div>
+              <div class="author-title">Watch Collector, Tiranë</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card" data-animate>
+          <p class="testimonial-quote">Selling my late grandfather's art collection was emotional, but Ankand handled
+            everything with professionalism and achieved record prices.</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+              alt="Elena Hoxha" class="author-avatar">
+            <div>
+              <div class="author-name">Elena Hoxha</div>
+              <div class="author-title">Art Dealer, Durrës</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section">
+    <div class="container">
+      <div class="newsletter-section">
+        <h2 class="newsletter-title">Stay <span class="text-gold">Updated</span></h2>
+        <p class="newsletter-description">Get notified about new auctions, exclusive items, and special events.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="Enter your email address" required>
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo-wrapper">
+            <img src="images/logo.svg" alt="Ankand" class="footer-logo-icon">
+            <div class="footer-logo-content">
+              <span class="footer-logo">Ankand</span>
+              <span class="footer-tagline">Gjeni & Shitet</span>
+            </div>
+          </div>
+          <p class="footer-description">Albania's premier online auction marketplace for luxury items, antiques, and
+            collectors' treasures.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-link" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="social-link" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <nav class="footer-nav">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="auctions.html">Browse Auctions</a></li>
+            <li><a href="#">Sell With Us</a></li>
+            <li><a href="#">How to Bid</a></li>
+            <li><a href="#">Buyer Guide</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-nav">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="#">Luxury Watches</a></li>
+            <li><a href="#">Fine Art</a></li>
+            <li><a href="#">Jewelry</a></li>
+            <li><a href="#">Antiques</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-nav">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns Policy</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Ankand. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="js/script.js"></script>
+</body>
+
+</html>
