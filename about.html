@@ -24,14 +24,20 @@
         <div class="navbar-container">
             <!-- Left: Navigation Links -->
             <ul class="navbar-nav" id="navMenu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-dropdown-toggle" aria-expanded="false">Home</button>
+                    <div class="nav-dropdown-menu">
+                        <a href="index.html" class="nav-dropdown-item">Live Auctions</a>
+                        <a href="index-2.html" class="nav-dropdown-item">Premium Collections</a>
+                    </div>
+                </li>
                 <li><a href="live.html" class="nav-link">Auctions</a></li>
                 <li><a href="categories.html" class="nav-link">Categories</a></li>
                 <li><a href="about.html" class="nav-link active">About</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
                 <!-- Mobile Nav Actions -->
-                <div class="mobile-nav-actions">
-                    <a href="login.html" class="btn btn-nav-outline">Login</a>
+          <div class="mobile-nav-actions">
+<a href="login.html" class="btn btn-nav-outline">Login</a>
                     <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
                     <a href="live.html" class="btn-join-live">Join Live</a>
                 </div>
@@ -48,7 +54,10 @@
 
             <!-- Right: Actions -->
             <div class="navbar-actions">
-                <a href="login.html" class="btn btn-nav-outline">Login</a>
+                <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+          <i class="bi bi-sun-fill"></i>
+        </button>
+        <a href="login.html" class="btn btn-nav-outline">Login</a>
                 <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
                 <a href="live.html" class="btn-join-live">Join Live</a>
                 <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">

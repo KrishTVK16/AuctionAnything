@@ -476,6 +476,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize all systems
   initMobileMenu();
+  initDropdownNav();
+  initDarkMode();
   initCountdownTimers();
   initScrollAnimations();
   initNewsletterForm();
@@ -552,6 +554,109 @@ function initMobileMenu() {
         menuToggle.classList.remove('active');
       });
     });
+  }
+}
+
+function initDropdownNav() {
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+
+  dropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+    const menu = dropdown.querySelector('.nav-dropdown-menu');
+
+    if (toggle && menu) {
+      // Toggle dropdown on click
+      toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+
+        // Close other dropdowns
+        dropdowns.forEach(other => {
+          if (other !== dropdown) {
+            other.classList.remove('active');
+          }
+        });
+
+        // Toggle this dropdown
+        dropdown.classList.toggle('active');
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!dropdown.contains(e.target)) {
+          dropdown.classList.remove('active');
+        }
+      });
+
+      // Close dropdown when clicking a menu item
+      const menuItems = menu.querySelectorAll('.nav-dropdown-item');
+      menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+          dropdown.classList.remove('active');
+
+          // Also close mobile menu if open
+          const navMenu = document.getElementById('navMenu');
+          const menuToggle = document.getElementById('mobileMenuToggle');
+          if (navMenu && menuToggle) {
+            navMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+          }
+        });
+      });
+
+      // Keyboard support
+      toggle.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          dropdown.classList.toggle('active');
+        } else if (e.key === 'Escape') {
+          dropdown.classList.remove('active');
+        }
+      });
+    }
+  });
+}
+
+function initDarkMode() {
+  const darkModeToggle = document.getElementById('darkModeToggle');
+
+  if (!darkModeToggle) return;
+
+  // Check for saved dark mode preference or default to dark
+  const savedMode = localStorage.getItem('darkMode');
+  const isDark = savedMode === null ? true : savedMode === 'true';
+
+  // Apply saved mode
+  if (!isDark) {
+    document.body.classList.add('light-mode');
+    updateDarkModeIcon(darkModeToggle, false);
+  } else {
+    updateDarkModeIcon(darkModeToggle, true);
+  }
+
+  // Toggle dark mode on click
+  darkModeToggle.addEventListener('click', function () {
+    const isCurrentlyDark = !document.body.classList.contains('light-mode');
+
+    if (isCurrentlyDark) {
+      // Switch to light mode
+      document.body.classList.add('light-mode');
+      localStorage.setItem('darkMode', 'false');
+      updateDarkModeIcon(darkModeToggle, false);
+    } else {
+      // Switch to dark mode
+      document.body.classList.remove('light-mode');
+      localStorage.setItem('darkMode', 'true');
+      updateDarkModeIcon(darkModeToggle, true);
+    }
+  });
+}
+
+function updateDarkModeIcon(button, isDark) {
+  const icon = button.querySelector('i');
+  if (isDark) {
+    icon.className = 'bi bi-sun-fill'; // Show sun icon in dark mode (to switch to light)
+  } else {
+    icon.className = 'bi bi-moon-fill'; // Show moon icon in light mode (to switch to dark)
   }
 }
 

@@ -24,14 +24,20 @@
         <div class="navbar-container">
             <!-- Left: Navigation Links -->
             <ul class="navbar-nav" id="navMenu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-dropdown-toggle" aria-expanded="false">Home</button>
+                    <div class="nav-dropdown-menu">
+                        <a href="index.html" class="nav-dropdown-item">Live Auctions</a>
+                        <a href="index-2.html" class="nav-dropdown-item">Premium Collections</a>
+                    </div>
+                </li>
                 <li><a href="live.html" class="nav-link active">Auctions</a></li>
                 <li><a href="categories.html" class="nav-link">Categories</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
                 <!-- Mobile Nav Actions -->
-                <div class="mobile-nav-actions">
-                    <a href="login.html" class="btn btn-nav-outline">Login</a>
+          <div class="mobile-nav-actions">
+<a href="login.html" class="btn btn-nav-outline">Login</a>
                     <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
                     <a href="live.html" class="btn-join-live">Join Live</a>
                 </div>
@@ -48,6 +54,9 @@
 
             <!-- Right: Actions -->
             <div class="navbar-actions">
+                <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+                    <i class="bi bi-sun-fill"></i>
+                </button>
                 <a href="login.html" class="btn btn-nav-outline">Login</a>
                 <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
                 <a href="live.html" class="btn-join-live">Join Live</a>
@@ -105,7 +114,7 @@
                 <!-- Auction 1 -->
                 <a href="auction-detail.html" class="card auction-card" data-animate>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&h=450&fit=crop"
+                        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=450&fit=crop"
                             alt="Vintage Rolex Watch">
                         <span class="auction-badge live-now">Live Now</span>
                         <div class="auction-timer" data-end="2025-12-14T18:00:00">
@@ -133,9 +142,9 @@
                 </a>
 
                 <!-- Auction 2 -->
-                <a href="auction-detail.html" class="card auction-card" data-animate>
+                <a href="auction-detail.html?id=rolex-submariner" class="card auction-card" data-animate>
                     <div class="card-image">
-                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&h=450&fit=crop"
+                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=450&fit=crop"
                             alt="Abstract Painting">
                         <span class="auction-badge hot-bid">Hot Bid</span>
                         <div class="auction-timer" data-end="2025-12-15T12:00:00">
@@ -163,7 +172,7 @@
                 </a>
 
                 <!-- Auction 3 -->
-                <a href="auction-detail.html" class="card auction-card" data-animate>
+                <a href="auction-detail.html?id=abstract-painting" class="card auction-card" data-animate>
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=450&fit=crop"
                             alt="Diamond Necklace">
@@ -193,7 +202,7 @@
                 </a>
 
                 <!-- Auction 4 -->
-                <a href="auction-detail.html" class="card auction-card" data-animate>
+                <a href="auction-detail.html?id=diamond-necklace" class="card auction-card" data-animate>
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&h=450&fit=crop"
                             alt="Classic Ferrari">
@@ -223,7 +232,7 @@
                 </a>
 
                 <!-- Auction 5 -->
-                <a href="auction-detail.html" class="card auction-card" data-animate>
+                <a href="auction-detail.html?id=ferrari-250" class="card auction-card" data-animate>
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1551817958-20204d6ab212?w=600&h=450&fit=crop"
                             alt="Antique Furniture">
@@ -253,7 +262,7 @@
                 </a>
 
                 <!-- Auction 6 -->
-                <a href="auction-detail.html" class="card auction-card" data-animate>
+                <a href="auction-detail.html?id=ottoman-bureau" class="card auction-card" data-animate>
                     <div class="card-image">
                         <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=600&h=450&fit=crop"
                             alt="Vintage Camera">
