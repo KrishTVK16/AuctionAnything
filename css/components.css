@@ -410,14 +410,17 @@
 
 .card-body {
     padding: var(--space-lg);
+    text-align: center;
 }
 
 .card-title {
     font-size: 1.25rem;
     margin-bottom: var(--space-sm);
+    text-align: center;
 }
 
 .card-text {
     color: var(--text-secondary);
     font-size: 0.9rem;
+    text-align: center;
 }

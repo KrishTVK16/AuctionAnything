@@ -480,12 +480,43 @@ document.addEventListener('DOMContentLoaded', function () {
   initScrollAnimations();
   initNewsletterForm();
   initSmoothScroll();
+  initScrollToTop();
 
   // Initialize new systems
   LiveBidUpdates.init();
   AuctionFilters.init();
   UserInteraction.init();
 });
+
+// ===== SCROLL TO TOP =====
+function initScrollToTop() {
+  // Create scroll-to-top button if not exists
+  let scrollBtn = document.querySelector('.scroll-to-top');
+  if (!scrollBtn) {
+    scrollBtn = document.createElement('button');
+    scrollBtn.className = 'scroll-to-top';
+    scrollBtn.innerHTML = '<i class="bi bi-arrow-up"></i>';
+    scrollBtn.setAttribute('aria-label', 'Scroll to top');
+    document.body.appendChild(scrollBtn);
+  }
+
+  // Show/hide button based on scroll position
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      scrollBtn.classList.add('visible');
+    } else {
+      scrollBtn.classList.remove('visible');
+    }
+  });
+
+  // Scroll to top when clicked
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
 
 // ===== CORE FUNCTIONS =====
 

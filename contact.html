@@ -64,11 +64,6 @@
     <header class="page-header">
         <div class="container">
             <h1>Contact <span class="text-gold">Us</span></h1>
-            <nav class="breadcrumb">
-                <a href="index.html">Home</a>
-                <span class="breadcrumb-separator">/</span>
-                <span>Contact</span>
-            </nav>
         </div>
     </header>
 
@@ -76,10 +71,66 @@
     <section class="section">
         <div class="container">
             <div class="contact-grid">
-                <!-- Contact Info -->
+                <!-- Contact Form (First) -->
+                <div data-animate>
+                    <div
+                        style="background: var(--bg-card); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--border-color);">
+                        <h3 class="mb-3" style="text-align: center;">Send a <span class="text-gold">Message</span></h3>
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter your first name"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-0">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter your last name"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select class="form-control" required>
+                                    <option value="">Select a topic</option>
+                                    <option value="buying">Buying &amp; Bidding</option>
+                                    <option value="selling">Selling &amp; Consignment</option>
+                                    <option value="authentication">Authentication Services</option>
+                                    <option value="shipping">Shipping &amp; Delivery</option>
+                                    <option value="general">General Inquiry</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" rows="5" placeholder="How can we help you?"
+                                    required></textarea>
+                            </div>
+
+                            <div style="text-align: center;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-send"></i> Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Info (Second) -->
                 <div>
-                    <h2 class="mb-3">Get In <span class="text-gold">Touch</span></h2>
-                    <p style="color: var(--text-secondary); margin-bottom: var(--space-2xl); line-height: 1.8;">
+                    <h2 class="mb-3" style="text-align: center;">Get In <span class="text-gold">Touch</span></h2>
+                    <p
+                        style="color: var(--text-secondary); margin-bottom: var(--space-2xl); line-height: 1.8; text-align: center;">
                         Have questions about an auction, consignment, or our services? Our team is here to help. Reach
                         out through any of the channels below or fill out the contact form.
                     </p>
@@ -126,59 +177,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Contact Form -->
-                <div data-animate>
-                    <div
-                        style="background: var(--bg-card); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--border-color);">
-                        <h3 class="mb-3">Send a <span class="text-gold">Message</span></h3>
-                        <form id="contactForm">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-group mb-0">
-                                        <label class="form-label">First Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter your first name"
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group mb-0">
-                                        <label class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter your last name"
-                                            required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-control" placeholder="Enter your email" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Subject</label>
-                                <select class="form-control" required>
-                                    <option value="">Select a topic</option>
-                                    <option value="buying">Buying & Bidding</option>
-                                    <option value="selling">Selling & Consignment</option>
-                                    <option value="authentication">Authentication Services</option>
-                                    <option value="shipping">Shipping & Delivery</option>
-                                    <option value="general">General Inquiry</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Message</label>
-                                <textarea class="form-control" rows="5" placeholder="How can we help you?"
-                                    required></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
-                                <i class="bi bi-send"></i> Send Message
-                            </button>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -191,12 +189,12 @@
                 <p>Visit our gallery in the heart of Tiranë</p>
             </div>
             <div
-                style="border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border-color); height: 400px; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center;">
-                <div style="text-align: center; color: var(--text-muted);">
-                    <i class="bi bi-geo-alt" style="font-size: 4rem; color: var(--primary-gold);"></i>
-                    <p style="margin-top: var(--space-md);">Interactive map would be displayed here</p>
-                    <p style="font-size: 0.9rem;">Rruga Ismail Qemali 27, Tiranë 1001</p>
-                </div>
+                style="border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border-color); height: 400px;">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.0461035890913!2d19.818584!3d41.327546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1350310d4d4d5555%3A0x1234567890abcdef!2sRruga%20Ismail%20Qemali%2027%2C%20Tiran%C3%AB%2C%20Albania!5e0!3m2!1sen!2s!4v1702654321000!5m2!1sen!2s"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
     </section>
@@ -226,33 +224,34 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="auctions.html">Browse Auctions</a></li>
-                        <li><a href="#">Sell With Us</a></li>
-                        <li><a href="#">How to Bid</a></li>
-                        <li><a href="#">Buyer Guide</a></li>
+                        <li><a href="sell-with-us.html">Sell With Us</a></li>
+                        <li><a href="how-to-bid.html">How to Bid</a></li>
+                        <li><a href="buyer-guide.html">Buyer Guide</a></li>
                     </ul>
                 </nav>
                 <nav class="footer-nav">
                     <h4>Categories</h4>
                     <ul>
-                        <li><a href="#">Luxury Watches</a></li>
-                        <li><a href="#">Fine Art</a></li>
-                        <li><a href="#">Jewelry</a></li>
-                        <li><a href="#">Antiques</a></li>
+                        <li><a href="live.html?category=watches">Luxury Watches</a></li>
+                        <li><a href="live.html?category=art">Fine Art</a></li>
+                        <li><a href="live.html?category=jewelry">Jewelry</a></li>
+                        <li><a href="live.html?category=antiques">Antiques</a></li>
                     </ul>
                 </nav>
                 <nav class="footer-nav">
                     <h4>Support</h4>
                     <ul>
                         <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Shipping Info</a></li>
-                        <li><a href="#">Returns Policy</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="shipping-info.html">Shipping Info</a></li>
+                        <li><a href="returns-policy.html">Returns Policy</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Ankand. All rights reserved.</p>
-                <div class="footer-links"><a href="#">Privacy</a><a href="#">Terms</a></div>
+                <div class="footer-links"><a href="privacy-policy.html">Privacy</a><a
+                        href="terms-of-service.html">Terms</a></div>
             </div>
         </div>
     </footer>
