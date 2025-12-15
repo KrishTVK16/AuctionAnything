@@ -187,7 +187,7 @@
                         </div>
 
                         <!-- Countdown Timer -->
-                        <div class="big-timer" data-end="2025-12-14T18:00:00">
+                        <div class="big-timer" data-end="2025-12-30T18:00:00">
                             <div class="timer-block"><span class="timer-value days">00</span><span
                                     class="timer-label">Days</span></div>
                             <div class="timer-block"><span class="timer-value hours">00</span><span
@@ -404,7 +404,7 @@
         function loadProductData() {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id') || 'rolex-submariner';
-            
+
             const product = PRODUCTS_DATA[productId];
             if (!product) {
                 console.error('Product not found:', productId);
@@ -415,7 +415,7 @@
             document.title = product.name + ' | Ankand — Gjeni & Shitet';
 
             // Update main image
-           umelementById('mainImage').src = product.mainImage;
+            umelementById('mainImage').src = product.mainImage;
 
             // Update gallery thumbnails
             const thumbs = document.querySelectorAll('.gallery-thumb');
@@ -444,7 +444,7 @@
 
             // Update included items
             const includedList = document.querySelector('ul[style*="grid-template-columns"]');
-            includedList.innerHTML = product.included.map(item => 
+            includedList.innerHTML = product.included.map(item =>
                 `<li><i class="bi bi-check-circle-fill text-gold"></i> ${item}</li>`
             ).join('');
 
@@ -452,7 +452,7 @@
             document.querySelector('.bid-amount').textContent = '€' + product.currentBid.toLocaleString();
             document.querySelector('.big-timer').setAttribute('data-end', product.endTime);
             document.querySelector('h4[style*="font-size: 1rem"]').textContent = `Bid History (${product.bidCount} bids)`;
-            document.querySelector('label[style*="font-size: 0.85rem"]').textContent = 
+            document.querySelector('label[style*="font-size: 0.85rem"]').textContent =
                 `Your Bid (Minimum: €${(product.currentBid + 250).toLocaleString()})`;
             document.querySelector('.bid-input').value = '€' + (product.currentBid + 250).toLocaleString();
 
