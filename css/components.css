@@ -174,15 +174,15 @@
     background: transparent;
     border: none;
     color: var(--bg-primary);
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: var(--radius-md);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all var(--transition-fast);
-    font-size: 18px;
+    font-size: 22px;
     flex-shrink: 0;
 }
 
@@ -202,15 +202,19 @@
 .mobile-menu-toggle {
     display: none;
     flex-direction: column;
-    gap: 5px;
-    padding: var(--space-sm);
+    gap: 6px;
+    padding: 10px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
 }
 
 .mobile-menu-toggle span {
     display: block;
-    width: 24px;
-    height: 2px;
+    width: 28px;
+    height: 3px;
     background: var(--bg-primary);
+    border-radius: 2px;
     transition: var(--transition-fast);
 }
 
@@ -299,11 +303,11 @@
 
 @media (max-width: 991px) {
     .navbar-container {
-        display: grid;
-        grid-template-columns: 50px 1fr auto;
+        display: flex;
         align-items: center;
-        padding: 0 10px;
-        gap: 10px;
+        justify-content: space-between;
+        padding: 0 16px;
+        gap: 16px;
     }
 
     /* Empty spacer on left (nav is hidden) */
@@ -314,19 +318,25 @@
         padding: 0;
         margin: 0;
         overflow: hidden;
+        position: absolute;
     }
 
     .navbar-brand {
-        grid-column: 2;
-        justify-self: center;
+        /* Logo on left side */
+        position: relative;
+        order: 1;
+    }
+
+    .navbar-brand>* {
+        pointer-events: auto;
     }
 
     .navbar-actions {
-        grid-column: 3;
-        justify-self: end;
+        /* Buttons on right side */
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
+        order: 2;
     }
 
     .navbar-nav {
