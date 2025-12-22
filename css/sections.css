@@ -148,14 +148,22 @@
 
 /* ===== HERO SECTION ===== */
 .hero {
-    min-height: 100vh;
+    height: 70vh;
+    min-height: 500px;
     display: flex;
     align-items: center;
     position: relative;
     overflow: hidden;
     padding-top: 1rem;
-    margin-top: 100px;
+    margin-top: 80px;
     /* Account for fixed navbar height */
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 450px;
+        height: 60vh;
+    }
 }
 
 .hero-background {
@@ -291,8 +299,16 @@
     color: var(--bg-primary);
 }
 
+body.light-mode .hero-title-dark {
+    color: #0A0A0A;
+}
+
 .hero-description-dark {
     color: var(--bg-secondary);
+}
+
+body.light-mode .hero-description-dark {
+    color: #2C2C2C;
 }
 
 .hero-label-dark {
@@ -301,11 +317,21 @@
     color: var(--bg-primary);
 }
 
+body.light-mode .hero-label-dark {
+    background: rgba(10, 10, 10, 0.1);
+    border-color: rgba(10, 10, 10, 0.25);
+    color: #0A0A0A;
+}
+
 .text-dark-accent {
     color: var(--bg-deep);
     text-decoration: underline;
     text-decoration-thickness: 3px;
     text-underline-offset: 4px;
+}
+
+body.light-mode .text-dark-accent {
+    color: #0A0A0A;
 }
 
 .hero-stats-dark {
@@ -316,8 +342,16 @@
     color: var(--bg-primary);
 }
 
+body.light-mode .stat-value-dark {
+    color: #0A0A0A;
+}
+
 .stat-label-dark {
     color: var(--bg-secondary);
+}
+
+body.light-mode .stat-label-dark {
+    color: #2C2C2C;
 }
 
 .btn-outline-dark {
@@ -337,8 +371,18 @@
     gap: var(--space-sm);
 }
 
+body.light-mode .btn-outline-dark {
+    color: #0A0A0A;
+    border-color: #0A0A0A;
+}
+
 .btn-outline-dark:hover {
     background: var(--bg-primary);
+    color: var(--primary-gold);
+}
+
+body.light-mode .btn-outline-dark:hover {
+    background: #0A0A0A;
     color: var(--primary-gold);
 }
 

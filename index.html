@@ -20,6 +20,86 @@
   <link rel="stylesheet" href="css/sections.css">
   <link rel="stylesheet" href="css/pages.css">
   <link rel="stylesheet" href="css/utilities.css">
+
+  <style>
+    /* Stats Section Styles */
+    .stats-section {
+      background: var(--yellow-gradient);
+      padding: var(--space-3xl) 0;
+      position: relative;
+      margin-top: 0;
+    }
+
+    .stats-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 183, 3, 0.3), transparent);
+    }
+
+    .stats-box {
+      width: 75%;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 183, 3, 0.3);
+      border-radius: var(--radius-xl);
+      padding: var(--space-2xl);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-lg), var(--shadow-gold);
+    }
+
+    body.light-mode .stats-box {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid rgba(255, 183, 3, 0.4);
+    }
+
+    .stats-section .hero-stats {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+      gap: calc(var(--space-3xl) * 1.5);
+    }
+
+    .stats-section .stat-item {
+      position: relative;
+    }
+
+    .stats-section .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: calc(calc(var(--space-3xl) * 1.5) / -2);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 60px;
+      background: rgba(255, 183, 3, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .stats-box {
+        width: 90%;
+        padding: var(--space-xl);
+      }
+
+      .stats-section .hero-stats {
+        gap: var(--space-2xl);
+      }
+      
+      .stats-section .stat-item:not(:last-child)::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 575px) {
+      .stats-box {
+        width: 95%;
+        padding: var(--space-lg);
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -83,11 +163,10 @@
           Live Auctions Now
         </span>
         <h1 class="hero-title hero-title-dark">
-          Live Auctions with <span class="text-dark-accent">Real-Time</span> Competitive Bidding
+          Live Auctions with <span style="white-space: nowrap;"><span class="text-dark-accent">Real-Time</span> Bidding</span>
         </h1>
         <p class="hero-description hero-description-dark">
-          Join Albania's premier curated auction marketplace. Bid on verified luxury items, fine art,
-          antiques, and exclusive collectibles with complete trust and transparency.
+          “A curated Albanian auction marketplace for verified luxury, fine art, antiques, and rare collectibles.”
         </p>
         <div class="hero-actions">
           <a href="live.html" class="btn btn-dark btn-lg">
@@ -98,7 +177,14 @@
             Browse Categories
           </a>
         </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-box">
         <div class="hero-stats hero-stats-dark">
           <div class="stat-item">
             <div class="stat-value stat-value-dark">2,500+</div>

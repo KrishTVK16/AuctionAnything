@@ -90,10 +90,10 @@ body.light-mode {
   --bg-elevated: #FFFFFF;
   --bg-hover: #F0F0F0;
 
-  /* Light Text */
-  --text-primary: #121212;
-  --text-secondary: #424242;
-  --text-muted: #757575;
+  /* Light Text - Enhanced visibility with warm tones to complement gold theme */
+  --text-primary: #0A0A0A;
+  --text-secondary: #1F1F1F;
+  --text-muted: #4A4A4A;
 
   /* Light Borders */
   --border-color: #E0E0E0;

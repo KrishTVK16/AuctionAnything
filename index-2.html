@@ -20,6 +20,910 @@
   <link rel="stylesheet" href="css/sections.css">
   <link rel="stylesheet" href="css/pages.css">
   <link rel="stylesheet" href="css/utilities.css">
+
+  <!-- Immersive Showcase Styles -->
+  <style>
+    /* Full-Screen Immersive Hero */
+    .immersive-hero {
+      position: relative;
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-top: 80px;
+    }
+
+    .immersive-hero-background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .immersive-hero-background img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .immersive-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(18, 18, 18, 0.4) 0%, rgba(18, 18, 18, 0.85) 100%);
+    }
+
+    .immersive-hero-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 0;
+      text-align: center;
+    }
+
+    .immersive-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-lg);
+      background: rgba(255, 183, 3, 0.1);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary-gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: var(--space-xl);
+    }
+
+    .immersive-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xl);
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .immersive-description {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      line-height: 1.6;
+    }
+
+    /* Light mode adjustments for hero */
+    body.light-mode .immersive-hero-overlay {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.85) 100%);
+    }
+
+    body.light-mode .immersive-title {
+      color: #121212;
+      text-shadow: 0 2px 15px rgba(255, 255, 255, 0.9);
+    }
+
+    body.light-mode .immersive-description {
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+
+    .immersive-actions {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+
+    /* Horizontal Scrolling Collection */
+    .horizontal-collection {
+      padding: var(--space-3xl) 0;
+      background: var(--bg-primary);
+    }
+
+    .horizontal-collection-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-2xl);
+      padding: 0 var(--space-md);
+    }
+
+    .horizontal-collection-header-content {
+      text-align: center;
+      flex: 1;
+    }
+
+    .horizontal-collection-header h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+    }
+
+    .horizontal-scroll-wrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary-gold) var(--bg-secondary);
+      padding-bottom: var(--space-md);
+    }
+
+    .horizontal-scroll-wrapper::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .horizontal-scroll-wrapper::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    .horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
+      background: var(--primary-gold);
+      border-radius: 4px;
+    }
+
+    .horizontal-scroll-container {
+      display: flex;
+      gap: var(--space-lg);
+      padding: 0 var(--space-md);
+      min-width: max-content;
+    }
+
+    .horizontal-item {
+      flex-shrink: 0;
+      width: 350px;
+      height: 500px;
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform var(--transition-base);
+    }
+
+    .horizontal-item:hover {
+      transform: translateY(-8px);
+    }
+
+    .horizontal-item-image {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .horizontal-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .horizontal-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.9) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-xl);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .horizontal-item:hover .horizontal-item-overlay {
+      opacity: 1;
+    }
+
+    .horizontal-item-content h4 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Light mode adjustments for horizontal items */
+    body.light-mode .horizontal-item-overlay {
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.85) 100%);
+    }
+
+    body.light-mode .horizontal-item-content h4 {
+      color: #ffffff;
+    }
+
+    body.light-mode .horizontal-item-content p {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    body.light-mode .horizontal-item-price {
+      color: var(--primary-gold);
+    }
+
+    .horizontal-item-content p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      font-size: 0.95rem;
+    }
+
+    .horizontal-item-price {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--primary-gold);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Split-Screen Sections */
+    .split-screen-section {
+      min-height: 600px;
+      background: var(--bg-primary);
+    }
+
+    .split-screen-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+
+    .split-screen-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .split-screen-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .split-screen-content {
+      display: flex;
+      align-items: center;
+      padding: var(--space-3xl);
+      background: var(--bg-secondary);
+    }
+
+    .split-screen-inner {
+      max-width: 600px;
+    }
+
+    .split-screen-centered {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .split-screen-centered .split-screen-label {
+      margin-left: auto;
+      margin-right: auto;
+      display: inline-flex;
+    }
+
+    .split-screen-centered .split-screen-features {
+      display: inline-block;
+      text-align: left;
+    }
+
+    .split-screen-centered .split-screen-stats {
+      justify-content: center;
+    }
+
+    .split-screen-reverse .split-screen-container {
+      direction: rtl;
+    }
+
+    .split-screen-reverse .split-screen-container > * {
+      direction: ltr;
+    }
+
+    .split-screen-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: rgba(255, 183, 3, 0.1);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary-gold);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .split-screen-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: var(--space-lg);
+      color: var(--text-primary);
+    }
+
+    .split-screen-inner p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-xl);
+    }
+
+    .split-screen-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-xl) 0;
+    }
+
+    .split-screen-features li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      font-size: 1.05rem;
+    }
+
+    .split-screen-features li i {
+      color: var(--primary-gold);
+      font-size: 1.25rem;
+    }
+
+    .split-screen-stats {
+      display: flex;
+      gap: var(--space-2xl);
+      margin-bottom: var(--space-xl);
+      padding: var(--space-xl) 0;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .split-stat {
+      text-align: center;
+    }
+
+    .split-stat-value {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-gold);
+      line-height: 1;
+      margin-bottom: var(--space-xs);
+    }
+
+    .split-stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Category Showcase */
+    .category-showcase {
+      padding: var(--space-3xl) 0;
+      background: var(--bg-secondary);
+    }
+
+    .category-showcase-header {
+      text-align: center;
+      margin-bottom: var(--space-3xl);
+    }
+
+    .category-showcase-header h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+    }
+
+    .category-showcase-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: var(--space-lg);
+      min-height: 600px;
+    }
+
+    .category-showcase-item {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition-base);
+    }
+
+    .category-showcase-item.large {
+      grid-row: 1 / -1;
+    }
+
+    .category-showcase-item:hover {
+      transform: scale(1.02);
+    }
+
+    .category-showcase-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .category-showcase-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-2xl);
+      opacity: 0;
+      transition: opacity var(--transition-base);
+    }
+
+    .category-showcase-item:hover .category-showcase-overlay {
+      opacity: 1;
+    }
+
+    .category-showcase-overlay h3 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .category-showcase-overlay p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-lg);
+      font-size: 1.05rem;
+    }
+
+    /* Immersive Testimonials */
+    .immersive-testimonials {
+      position: relative;
+      padding: var(--space-3xl) 0;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .immersive-testimonials-background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .immersive-testimonials-background img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .immersive-testimonials-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(18, 18, 18, 0.85) 0%, rgba(18, 18, 18, 0.95) 100%);
+    }
+
+    .immersive-testimonials-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .immersive-testimonials-header {
+      text-align: center;
+      margin-bottom: var(--space-3xl);
+    }
+
+    .immersive-testimonials-label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-lg);
+      background: rgba(255, 183, 3, 0.1);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary-gold);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: var(--space-lg);
+    }
+
+    .immersive-testimonials-header h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+      color: var(--text-primary);
+    }
+
+    .immersive-testimonials-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+
+    /* Testimonials Carousel */
+    .testimonials-carousel-wrapper {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonials-carousel-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .testimonials-carousel-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      will-change: transform;
+    }
+
+    .testimonials-carousel-slide {
+      flex: 0 0 calc(50% - var(--space-lg));
+      margin-right: var(--space-xl);
+      min-width: 0;
+    }
+
+    @media (max-width: 768px) {
+      .testimonials-carousel-slide {
+        flex: 0 0 100%;
+      }
+    }
+
+    .immersive-testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: var(--space-2xl);
+      position: relative;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+      height: 100%;
+    }
+
+    .immersive-testimonial-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--primary-gold);
+    }
+
+    /* Carousel Navigation */
+    .testimonials-carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin-top: var(--space-2xl);
+    }
+
+    .testimonials-carousel-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-full);
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 1.25rem;
+    }
+
+    .testimonials-carousel-btn:hover {
+      background: var(--primary-gold);
+      border-color: var(--primary-gold);
+      color: var(--bg-primary);
+      transform: scale(1.1);
+    }
+
+    .testimonials-carousel-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .testimonials-carousel-indicators {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .testimonials-carousel-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: var(--radius-full);
+      background: var(--border-color);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 2px solid transparent;
+    }
+
+    .testimonials-carousel-indicator.active {
+      background: var(--primary-gold);
+      width: 32px;
+      border-radius: var(--radius-sm);
+    }
+
+    .testimonials-carousel-indicator:hover {
+      background: var(--primary-gold);
+      opacity: 0.7;
+    }
+
+    .immersive-testimonial-icon {
+      font-size: 3rem;
+      color: var(--primary-gold);
+      opacity: 0.2;
+      margin-bottom: var(--space-md);
+    }
+
+    .immersive-testimonial-quote {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+      margin-bottom: var(--space-xl);
+      font-style: italic;
+    }
+
+    .immersive-testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .immersive-author-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-full);
+      object-fit: cover;
+      border: 2px solid var(--primary-gold);
+    }
+
+    .immersive-author-info {
+      flex: 1;
+    }
+
+    .immersive-author-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 1.05rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .immersive-author-title {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Light mode testimonials */
+    body.light-mode .immersive-testimonials-overlay {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 100%);
+    }
+
+    body.light-mode .immersive-testimonial-card {
+      background: var(--bg-card);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Immersive Newsletter */
+    .immersive-newsletter {
+      position: relative;
+      padding: var(--space-3xl) 0;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .immersive-newsletter-background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: var(--dark-gradient);
+    }
+
+    .immersive-newsletter-gradient {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255, 183, 3, 0.15) 0%, transparent 70%);
+    }
+
+    .immersive-newsletter-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .immersive-newsletter-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .immersive-newsletter-icon {
+      font-size: 4rem;
+      color: var(--primary-gold);
+      animation: pulse 3s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .immersive-newsletter-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-primary);
+    }
+
+    .immersive-newsletter-content > p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .immersive-newsletter-form {
+      display: flex;
+      gap: var(--space-md);
+      max-width: 600px;
+      margin: 0 auto var(--space-lg);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .immersive-newsletter-input-wrapper {
+      flex: 1;
+      min-width: 300px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .immersive-newsletter-input-wrapper i {
+      position: absolute;
+      left: var(--space-md);
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      z-index: 1;
+    }
+
+    .immersive-newsletter-input-wrapper input {
+      width: 100%;
+      padding: var(--space-md) var(--space-md) var(--space-md) 3rem;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: border-color var(--transition-fast);
+    }
+
+    .immersive-newsletter-input-wrapper input:focus {
+      outline: none;
+      border-color: var(--primary-gold);
+      box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.1);
+    }
+
+    .immersive-newsletter-input-wrapper input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .immersive-newsletter-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .immersive-newsletter-note i {
+      color: var(--primary-gold);
+    }
+
+    /* Light mode newsletter */
+    body.light-mode .immersive-newsletter-background {
+      background: linear-gradient(135deg, #F5F5F5 0%, #EEEEEE 100%);
+    }
+
+    body.light-mode .immersive-newsletter-gradient {
+      background: radial-gradient(ellipse at center, rgba(255, 183, 3, 0.1) 0%, transparent 70%);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .split-screen-container {
+        grid-template-columns: 1fr;
+      }
+
+      .split-screen-image {
+        min-height: 400px;
+      }
+
+      .category-showcase-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+
+      .category-showcase-item.large {
+        grid-column: 1 / -1;
+        grid-row: auto;
+      }
+
+      .immersive-testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .immersive-newsletter-form {
+        flex-direction: column;
+      }
+
+      .immersive-newsletter-input-wrapper {
+        min-width: 100%;
+      }
+
+      .immersive-testimonial-card {
+        padding: var(--space-xl);
+      }
+
+      .horizontal-collection-header {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-md);
+      }
+
+      .horizontal-collection-header-content {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .immersive-hero {
+        min-height: 600px;
+      }
+
+      .horizontal-item {
+        width: 280px;
+        height: 400px;
+      }
+
+      .category-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .horizontal-collection-header {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-md);
+      }
+
+      .horizontal-collection-header-content {
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -73,325 +977,408 @@
     </div>
   </nav>
 
-  <!-- Hero Section - Dark Gradient -->
-  <section class="hero" style="background: var(--dark-gradient); padding: 6rem 0;">
-    <div class="container">
-      <div class="hero-content" style="text-align: center;">
-        <span class="hero-label" style="justify-content: center;">
+  <!-- Full-Screen Immersive Hero -->
+  <section class="immersive-hero">
+    <div class="immersive-hero-background">
+      <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1920&h=1080&fit=crop" alt="Luxury Collection">
+      <div class="immersive-hero-overlay"></div>
+    </div>
+    <div class="immersive-hero-content">
+      <div class="container">
+        <span class="immersive-label">
           <i class="bi bi-gem"></i>
           Curated Excellence
         </span>
-        <h1 class="hero-title" style="text-align: center;">
-          Browse <span class="text-gold">Premium Collections</span> of Verified Luxury Items
+        <h1 class="immersive-title">
+          Discover <span class="text-gold">Premium Collections</span>of Luxury
         </h1>
-        <p class="hero-description" style="text-align: center; max-width: 700px; margin: 0 auto 2rem;">
-          Explore our carefully curated selection of authenticated luxury watches, fine art, jewelry, and antiques.
-          Each piece vetted by expert appraisers for your confidence.
+        <p class="immersive-description">
+          Explore each masterpiece and extraordinary in our collection which are authenticated by world-class experts.
         </p>
-        <div class="hero-actions" style="justify-content: center;">
+        <div class="immersive-actions">
           <a href="categories.html" class="btn btn-primary btn-lg">
-            <i class="bi bi-grid-3x3-gap"></i>
             Explore Collections
-          </a>
-          <a href="live.html" class="btn btn-secondary btn-lg">
-            View Live Auctions
+            <i class="bi bi-arrow-right"></i>
           </a>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="hero-stats" style="justify-content: center;">
-          <div class="stat-item">
-            <div class="stat-value">850+</div>
-            <div class="stat-label">Premium Items</div>
+  <!-- Horizontal Scrolling Featured Collection -->
+  <section class="horizontal-collection">
+    <div class="container">
+      <div class="horizontal-collection-header">
+        <div class="horizontal-collection-header-content">
+          <h2>Featured <span class="text-gold">Collections</span></h2>
+          <p>Discover exceptional pieces from our curated selection</p>
+        </div>
+        <a href="live.html" class="btn btn-outline-primary">
+          View All <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+    <div class="horizontal-scroll-wrapper">
+      <div class="horizontal-scroll-container">
+        <!-- Item 1 -->
+        <div class="horizontal-item">
+          <div class="horizontal-item-image">
+            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=800&fit=crop" alt="Vintage Rolex">
+            <div class="horizontal-item-overlay">
+              <span class="auction-badge live-now">Live Now</span>
+              <div class="horizontal-item-content">
+                <h4>1965 Rolex Submariner</h4>
+                <p>Rare vintage timepiece with original documentation</p>
+                <div class="horizontal-item-price">€12,500</div>
+                <a href="live.html" class="btn btn-primary btn-sm">View Details</a>
+              </div>
+            </div>
           </div>
-          <div class="stat-item">
-            <div class="stat-value">100%</div>
-            <div class="stat-label">Authenticated</div>
+        </div>
+        <!-- Item 2 -->
+        <div class="horizontal-item">
+          <div class="horizontal-item-image">
+            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=800&fit=crop" alt="Abstract Art">
+            <div class="horizontal-item-overlay">
+              <span class="auction-badge hot-bid">Hot Bid</span>
+              <div class="horizontal-item-content">
+                <h4>Abstract Expressionist Oil</h4>
+                <p>Original oil on canvas by renowned artist</p>
+                <div class="horizontal-item-price">€8,200</div>
+                <a href="live.html" class="btn btn-primary btn-sm">View Details</a>
+              </div>
+            </div>
           </div>
-          <div class="stat-item">
-            <div class="stat-value">45+</div>
-            <div class="stat-label">Expert Appraisers</div>
+        </div>
+        <!-- Item 3 -->
+        <div class="horizontal-item">
+          <div class="horizontal-item-image">
+            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=800&fit=crop" alt="Diamond Necklace">
+            <div class="horizontal-item-overlay">
+              <span class="auction-badge ending-soon">Ending Soon</span>
+              <div class="horizontal-item-content">
+                <h4>Art Deco Diamond Necklace</h4>
+                <p>Stunning 1920s platinum and diamond necklace</p>
+                <div class="horizontal-item-price">€24,800</div>
+                <a href="live.html" class="btn btn-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Item 4 -->
+        <div class="horizontal-item">
+          <div class="horizontal-item-image">
+            <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=600&h=800&fit=crop" alt="Luxury Watch">
+            <div class="horizontal-item-overlay">
+              <span class="auction-badge live-now">Live Now</span>
+              <div class="horizontal-item-content">
+                <h4>Patek Philippe Calatrava</h4>
+                <p>Elegant Swiss timepiece in pristine condition</p>
+                <div class="horizontal-item-price">€18,500</div>
+                <a href="live.html" class="btn btn-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Item 5 -->
+        <div class="horizontal-item">
+          <div class="horizontal-item-image">
+            <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&h=800&fit=crop" alt="Fine Art">
+            <div class="horizontal-item-overlay">
+              <span class="auction-badge hot-bid">Hot Bid</span>
+              <div class="horizontal-item-content">
+                <h4>Vintage Oil Painting</h4>
+                <p>Classical masterpiece from the 19th century</p>
+                <div class="horizontal-item-price">€15,300</div>
+                <a href="live.html" class="btn btn-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Item 6 -->
+        <div class="horizontal-item">
+          <div class="horizontal-item-image">
+            <img src="https://images.unsplash.com/photo-1582582621959-48d27397dc69?w=600&h=800&fit=crop" alt="Antique Vase">
+            <div class="horizontal-item-overlay">
+              <div class="horizontal-item-content">
+                <h4>Chinese Porcelain Vase</h4>
+                <p>Ming Dynasty ceramic artifact with certification</p>
+                <div class="horizontal-item-price">€32,000</div>
+                <a href="live.html" class="btn btn-primary btn-sm">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Item 7 -->
+        <div class="horizontal-item">
+          <div class="horizontal-item-image">
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=800&fit=crop" alt="Jewelry">
+            <div class="horizontal-item-overlay">
+              <span class="auction-badge ending-soon">Ending Soon</span>
+              <div class="horizontal-item-content">
+                <h4>Art Nouveau Brooch</h4>
+                <p>Exquisite gold and emerald statement piece</p>
+                <div class="horizontal-item-price">€9,800</div>
+                <a href="live.html" class="btn btn-primary btn-sm">View Details</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Featured Auctions -->
-  <section class="section" id="featured">
-    <div class="container">
-      <div class="section-header">
-        <h2>Premium <span class="text-gold">Selections</span></h2>
-        <p>Handpicked luxury items from our curated collections</p>
+  <!-- Split-Screen: Authenticity Section -->
+  <section class="split-screen-section">
+    <div class="split-screen-container">
+      <div class="split-screen-image">
+        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=800&fit=crop" alt="Expert Authentication">
       </div>
-
-      <div class="featured-grid">
-        <!-- Auction Card 1 -->
-        <div class="card auction-card" data-animate>
-          <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=450&fit=crop"
-              alt="Vintage Rolex Watch">
-            <span class="auction-badge live-now">Live Now</span>
-            <div class="auction-timer" data-end="2025-12-30T18:00:00">
-              <div class="timer-block"><span class="timer-value days">00</span><span class="timer-label">Days</span>
-              </div>
-              <div class="timer-block"><span class="timer-value hours">00</span><span class="timer-label">Hrs</span>
-              </div>
-              <div class="timer-block"><span class="timer-value minutes">00</span><span class="timer-label">Min</span>
-              </div>
-              <div class="timer-block"><span class="timer-value seconds">00</span><span class="timer-label">Sec</span>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">1965 Rolex Submariner</h3>
-            <p class="card-text">Rare vintage timepiece in exceptional condition with original box and papers.</p>
-            <div class="auction-info">
-              <div>
-                <div class="current-bid-label">Current Bid</div>
-                <div class="current-bid-amount">€12,500</div>
-              </div>
-              <div class="bid-count">23 bids</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Auction Card 2 -->
-        <div class="card auction-card" data-animate>
-          <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=450&fit=crop"
-              alt="Abstract Oil Painting">
-            <span class="auction-badge hot-bid">Hot Bid</span>
-            <div class="auction-timer" data-end="2025-12-29T14:00:00">
-              <div class="timer-block"><span class="timer-value days">00</span><span class="timer-label">Days</span>
-              </div>
-              <div class="timer-block"><span class="timer-value hours">00</span><span class="timer-label">Hrs</span>
-              </div>
-              <div class="timer-block"><span class="timer-value minutes">00</span><span class="timer-label">Min</span>
-              </div>
-              <div class="timer-block"><span class="timer-value seconds">00</span><span class="timer-label">Sec</span>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Abstract Expressionist Oil</h3>
-            <p class="card-text">Original oil on canvas by renowned Albanian artist, signed and dated 1978.</p>
-            <div class="auction-info">
-              <div>
-                <div class="current-bid-label">Current Bid</div>
-                <div class="current-bid-amount">€8,200</div>
-              </div>
-              <div class="bid-count">15 bids</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Auction Card 3 -->
-        <div class="card auction-card" data-animate>
-          <div class="card-image">
-            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=450&fit=crop"
-              alt="Antique Jewelry">
-            <span class="auction-badge ending-soon">Ending Soon</span>
-            <div class="auction-timer" data-end="2025-12-30T22:00:00">
-              <div class="timer-block"><span class="timer-value days">00</span><span class="timer-label">Days</span>
-              </div>
-              <div class="timer-block"><span class="timer-value hours">00</span><span class="timer-label">Hrs</span>
-              </div>
-              <div class="timer-block"><span class="timer-value minutes">00</span><span class="timer-label">Min</span>
-              </div>
-              <div class="timer-block"><span class="timer-value seconds">00</span><span class="timer-label">Sec</span>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Art Deco Diamond Necklace</h3>
-            <p class="card-text">Stunning 1920s platinum and diamond necklace with original certification.</p>
-            <div class="auction-info">
-              <div>
-                <div class="current-bid-label">Current Bid</div>
-                <div class="current-bid-amount">€24,800</div>
-              </div>
-              <div class="bid-count">31 bids</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center mt-4">
-        <a href="live.html" class="btn btn-secondary">View All Auctions <i class="bi bi-arrow-right"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why Ankand -->
-  <section class="why-ankand section" id="why-ankand">
-    <div class="container">
-      <div class="section-header">
-        <h2>Why Choose <span class="text-gold">Ankand</span></h2>
-        <p>Trust, verification, and secure bidding at its finest</p>
-      </div>
-
-      <div class="why-grid">
-        <div class="why-card" data-animate>
-          <div class="why-icon">
+      <div class="split-screen-content">
+        <div class="split-screen-inner split-screen-centered">
+          <span class="split-screen-label">
             <i class="bi bi-shield-check"></i>
-          </div>
-          <h3 class="why-title">Verified Authenticity</h3>
-          <p class="why-description">Every item undergoes rigorous authentication by expert appraisers before being
-            listed on our platform.</p>
-        </div>
-
-        <div class="why-card" data-animate>
-          <div class="why-icon">
-            <i class="bi bi-lock"></i>
-          </div>
-          <h3 class="why-title">Secure Bidding</h3>
-          <p class="why-description">Bank-grade encryption and secure payment processing protect every transaction on
-            our platform.</p>
-        </div>
-
-        <div class="why-card" data-animate>
-          <div class="why-icon">
-            <i class="bi bi-award"></i>
-          </div>
-          <h3 class="why-title">Curated Excellence</h3>
-          <p class="why-description">Our experts hand-select only the finest pieces, ensuring quality and value for
-            discerning collectors.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works -->
-  <section class="section" id="how-it-works" style="background: var(--bg-secondary);">
-    <div class="container">
-      <div class="section-header">
-        <h2>How It <span class="text-gold">Works</span></h2>
-        <p>Start bidding in three simple steps</p>
-      </div>
-
-      <div class="steps-grid">
-        <div class="step-card" data-animate>
-          <div class="step-number">1</div>
-          <h3 class="step-title">Create Account</h3>
-          <p class="step-description">Sign up for free and verify your identity to start bidding on exclusive items.</p>
-        </div>
-
-        <div class="step-card" data-animate>
-          <div class="step-number">2</div>
-          <h3 class="step-title">Place Your Bid</h3>
-          <p class="step-description">Browse curated auctions and place competitive bids on items you love.</p>
-        </div>
-
-        <div class="step-card" data-animate>
-          <div class="step-number">3</div>
-          <h3 class="step-title">Win & Receive</h3>
-          <p class="step-description">Win the auction, complete payment, and receive your item with secure shipping.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Categories -->
-  <section class="section" id="categories">
-    <div class="container">
-      <div class="section-header">
-        <h2>Popular <span class="text-gold">Categories</span></h2>
-        <p>Explore our curated collection of premium items</p>
-      </div>
-
-      <div class="categories-grid">
-        <div class="category-card" data-animate>
-          <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=400&h=530&fit=crop" alt="Watches">
-          <div class="category-overlay">
-            <h4 class="category-name">Luxury Watches</h4>
-            <span class="category-count">124 items</span>
-          </div>
-        </div>
-
-        <div class="category-card" data-animate>
-          <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=400&h=530&fit=crop" alt="Art">
-          <div class="category-overlay">
-            <h4 class="category-name">Fine Art</h4>
-            <span class="category-count">89 items</span>
-          </div>
-        </div>
-
-        <div class="category-card" data-animate>
-          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=530&fit=crop" alt="Jewelry">
-          <div class="category-overlay">
-            <h4 class="category-name">Jewelry</h4>
-            <span class="category-count">156 items</span>
-          </div>
-        </div>
-
-        <div class="category-card" data-animate>
-          <img src="https://images.unsplash.com/photo-1582582621959-48d27397dc69?w=400&h=530&fit=crop" alt="Antiques">
-          <div class="category-overlay">
-            <h4 class="category-name">Antiques</h4>
-            <span class="category-count">78 items</span>
-          </div>
-        </div>
-
-        <div class="category-card" data-animate>
-          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&h=530&fit=crop"
-            alt="Automobiles">
-          <div class="category-overlay">
-            <h4 class="category-name">Classic Cars</h4>
-            <span class="category-count">34 items</span>
+            Verified Authenticity
+          </span>
+          <h2>Every Piece <span class="text-gold">Authenticated</span> by Experts</h2>
+          <p>Our team of 45+ certified appraisers meticulously verify each item before it reaches our platform. From luxury watches to fine art, every piece undergoes rigorous authentication to ensure you bid with complete confidence.</p>
+          <ul class="split-screen-features">
+            <li><i class="bi bi-check-circle-fill"></i> Expert certification on every item</li>
+            <li><i class="bi bi-check-circle-fill"></i> Provenance documentation included</li>
+            <li><i class="bi bi-check-circle-fill"></i> 100% authenticity guarantee</li>
+          </ul>
+          <div style="text-align: center;">
+            <a href="categories.html" class="btn btn-primary">Explore Authenticated Items</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="section" style="background: var(--bg-secondary);">
-    <div class="container">
-      <div class="section-header">
-        <h2>What Our <span class="text-gold">Clients Say</span></h2>
-        <p>Trusted by collectors and sellers across Albania</p>
-      </div>
-
-      <div class="testimonials-grid">
-        <div class="testimonial-card" data-animate>
-          <p class="testimonial-quote">The authentication process gave me complete confidence. I acquired a stunning
-            vintage Patek Philippe that exceeded my expectations.</p>
-          <div class="testimonial-author">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
-              alt="Arben Krasniqi" class="author-avatar">
-            <div>
-              <div class="author-name">Arben Krasniqi</div>
-              <div class="author-title">Watch Collector, Tiranë</div>
+  <!-- Split-Screen: Collections Section (Reversed) -->
+  <section class="split-screen-section split-screen-reverse">
+    <div class="split-screen-container">
+      <div class="split-screen-content">
+        <div class="split-screen-inner split-screen-centered">
+          <span class="split-screen-label">
+            <i class="bi bi-gem"></i>
+            Curated Excellence
+          </span>
+          <h2>Handpicked <span class="text-gold">Premium Collections</span></h2>
+          <p>We don't just list items—we curate masterpieces. Our experts travel the world to source only the finest pieces, ensuring every collection meets our exacting standards of quality, authenticity, and value.</p>
+          <div class="split-screen-stats">
+            <div class="split-stat">
+              <div class="split-stat-value">850+</div>
+              <div class="split-stat-label">Premium Items</div>
+            </div>
+            <div class="split-stat">
+              <div class="split-stat-value">100%</div>
+              <div class="split-stat-label">Authenticated</div>
+            </div>
+            <div class="split-stat">
+              <div class="split-stat-value">45+</div>
+              <div class="split-stat-label">Expert Appraisers</div>
             </div>
           </div>
+          <div style="text-align: center;">
+            <a href="live.html" class="btn btn-outline-primary">View Collections</a>
+          </div>
         </div>
+      </div>
+      <div class="split-screen-image">
+        <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1200&h=800&fit=crop" alt="Premium Collection">
+      </div>
+    </div>
+  </section>
 
-        <div class="testimonial-card" data-animate>
-          <p class="testimonial-quote">Selling my late grandfather's art collection was emotional, but Ankand handled
-            everything with professionalism and achieved record prices.</p>
-          <div class="testimonial-author">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
-              alt="Elena Hoxha" class="author-avatar">
-            <div>
-              <div class="author-name">Elena Hoxha</div>
-              <div class="author-title">Art Dealer, Durrës</div>
-            </div>
+  <!-- Large Category Showcase -->
+  <section class="category-showcase">
+    <div class="container">
+      <div class="category-showcase-header">
+        <h2>Explore by <span class="text-gold">Category</span></h2>
+        <p>Browse our carefully curated collections</p>
+      </div>
+      <div class="category-showcase-grid">
+        <div class="category-showcase-item large">
+          <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=800&h=600&fit=crop" alt="Luxury Watches">
+          <div class="category-showcase-overlay">
+            <h3>Luxury Watches</h3>
+            <p>124 authenticated timepieces</p>
+            <a href="live.html?category=watches" class="btn btn-primary">Explore</a>
+          </div>
+        </div>
+        <div class="category-showcase-item">
+          <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600&h=600&fit=crop" alt="Fine Art">
+          <div class="category-showcase-overlay">
+            <h3>Fine Art</h3>
+            <p>89 curated pieces</p>
+            <a href="live.html?category=art" class="btn btn-primary">Explore</a>
+          </div>
+        </div>
+        <div class="category-showcase-item">
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=600&fit=crop" alt="Jewelry">
+          <div class="category-showcase-overlay">
+            <h3>Jewelry</h3>
+            <p>156 exquisite items</p>
+            <a href="live.html?category=jewelry" class="btn btn-primary">Explore</a>
+          </div>
+        </div>
+        <div class="category-showcase-item">
+          <img src="https://images.unsplash.com/photo-1582582621959-48d27397dc69?w=600&h=600&fit=crop" alt="Antiques">
+          <div class="category-showcase-overlay">
+            <h3>Antiques</h3>
+            <p>78 verified items</p>
+            <a href="live.html?category=antiques" class="btn btn-primary">Explore</a>
+          </div>
+        </div>
+        <div class="category-showcase-item">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=600&fit=crop" alt="Classic Cars">
+          <div class="category-showcase-overlay">
+            <h3>Classic Cars</h3>
+            <p>34 premium vehicles</p>
+            <a href="live.html?category=cars" class="btn btn-primary">Explore</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Newsletter -->
-  <section class="section">
+  <!-- Immersive Testimonials -->
+  <section class="immersive-testimonials">
+    <div class="immersive-testimonials-background">
+      <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1920&h=800&fit=crop" alt="Luxury Collection">
+      <div class="immersive-testimonials-overlay"></div>
+    </div>
     <div class="container">
-      <div class="newsletter-section">
-        <h2 class="newsletter-title">Stay <span class="text-gold">Updated</span></h2>
-        <p class="newsletter-description">Get notified about new auctions, exclusive items, and special events.</p>
-        <form class="newsletter-form" id="newsletterForm">
-          <input type="email" placeholder="Enter your email address" required>
-          <button type="submit" class="btn btn-primary">Subscribe</button>
+      <div class="immersive-testimonials-content">
+        <div class="immersive-testimonials-header">
+          <span class="immersive-testimonials-label">
+            <i class="bi bi-star-fill"></i>
+            Client Stories
+          </span>
+          <h2>What Our <span class="text-gold">Clients Say</span></h2>
+          <p>Trusted by collectors and sellers across Albania</p>
+        </div>
+        <!-- Testimonials Carousel -->
+        <div class="testimonials-carousel-wrapper">
+          <div class="testimonials-carousel-container" id="testimonialsCarousel">
+            <div class="testimonials-carousel-track">
+              <!-- Testimonial 1 -->
+              <div class="testimonials-carousel-slide">
+                <div class="immersive-testimonial-card">
+                  <div class="immersive-testimonial-icon">
+                    <i class="bi bi-quote"></i>
+                  </div>
+                  <p class="immersive-testimonial-quote">The authentication process gave me complete confidence. I acquired a stunning vintage Patek Philippe that exceeded my expectations.</p>
+                  <div class="immersive-testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop"
+                      alt="Arben Krasniqi" class="immersive-author-avatar">
+                    <div class="immersive-author-info">
+                      <div class="immersive-author-name">Arben Krasniqi</div>
+                      <div class="immersive-author-title">Watch Collector, Tiranë</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 2 -->
+              <div class="testimonials-carousel-slide">
+                <div class="immersive-testimonial-card">
+                  <div class="immersive-testimonial-icon">
+                    <i class="bi bi-quote"></i>
+                  </div>
+                  <p class="immersive-testimonial-quote">Selling my late grandfather's art collection was emotional, but Ankand handled everything with professionalism and achieved record prices.</p>
+                  <div class="immersive-testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop"
+                      alt="Elena Hoxha" class="immersive-author-avatar">
+                    <div class="immersive-author-info">
+                      <div class="immersive-author-name">Elena Hoxha</div>
+                      <div class="immersive-author-title">Art Dealer, Durrës</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 3 -->
+              <div class="testimonials-carousel-slide">
+                <div class="immersive-testimonial-card">
+                  <div class="immersive-testimonial-icon">
+                    <i class="bi bi-quote"></i>
+                  </div>
+                  <p class="immersive-testimonial-quote">I've been collecting luxury watches for over 20 years, and Ankand's platform is by far the most trustworthy. Their verification process saved me from potential fraud multiple times.</p>
+                  <div class="immersive-testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop"
+                      alt="Genti Berisha" class="immersive-author-avatar">
+                    <div class="immersive-author-info">
+                      <div class="immersive-author-name">Genti Berisha</div>
+                      <div class="immersive-author-title">Luxury Collector, Vlorë</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 4 -->
+              <div class="testimonials-carousel-slide">
+                <div class="immersive-testimonial-card">
+                  <div class="immersive-testimonial-icon">
+                    <i class="bi bi-quote"></i>
+                  </div>
+                  <p class="immersive-testimonial-quote">The expert appraisers at Ankand provided detailed documentation for every piece I purchased. Their transparency and professionalism are unmatched in the Albanian market.</p>
+                  <div class="immersive-testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&fit=crop"
+                      alt="Blerta Demiri" class="immersive-author-avatar">
+                    <div class="immersive-author-info">
+                      <div class="immersive-author-name">Blerta Demiri</div>
+                      <div class="immersive-author-title">Antique Collector, Shkodër</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Carousel Navigation -->
+          <div class="testimonials-carousel-nav">
+            <button class="testimonials-carousel-btn prev" id="testimonialsPrev" aria-label="Previous">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <div class="testimonials-carousel-indicators" id="testimonialsIndicators"></div>
+            <button class="testimonials-carousel-btn next" id="testimonialsNext" aria-label="Next">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Immersive Newsletter CTA -->
+  <section class="immersive-newsletter">
+    <div class="immersive-newsletter-background">
+      <div class="immersive-newsletter-gradient"></div>
+    </div>
+    <div class="container">
+      <div class="immersive-newsletter-content">
+        <div class="immersive-newsletter-header">
+          <div class="immersive-newsletter-icon">
+            <i class="bi bi-envelope-heart"></i>
+          </div>
+          <h2>Stay <span class="text-gold">Connected</span></h2>
+        </div>
+        <p>Be the first to know about exclusive auctions, new collections, and special events. Join our premium newsletter for insider access.</p>
+        <form class="immersive-newsletter-form" id="newsletterForm">
+          <div class="immersive-newsletter-input-wrapper">
+            <i class="bi bi-envelope"></i>
+            <input type="email" placeholder="Enter your email address" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg">
+            Subscribe Now
+            <i class="bi bi-arrow-right"></i>
+          </button>
         </form>
+        <p class="immersive-newsletter-note">
+          <i class="bi bi-shield-check"></i>
+          We respect your privacy. Unsubscribe anytime.
+        </p>
       </div>
     </div>
   </section>
@@ -463,6 +1450,102 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Custom JS -->
   <script src="js/script.js"></script>
+  
+  <!-- Testimonials Carousel Script -->
+  <script>
+    (function() {
+      const carousel = document.getElementById('testimonialsCarousel');
+      const track = carousel.querySelector('.testimonials-carousel-track');
+      const slides = track.querySelectorAll('.testimonials-carousel-slide');
+      const prevBtn = document.getElementById('testimonialsPrev');
+      const nextBtn = document.getElementById('testimonialsNext');
+      const indicatorsContainer = document.getElementById('testimonialsIndicators');
+      
+      let currentIndex = 0;
+      let autoRotateInterval;
+      const totalSlides = slides.length;
+      let slidesPerView = window.innerWidth <= 768 ? 1 : 2;
+      let totalGroups = Math.ceil(totalSlides / slidesPerView);
+      
+      // Create indicators
+      for (let i = 0; i < totalGroups; i++) {
+        const indicator = document.createElement('div');
+        indicator.className = 'testimonials-carousel-indicator';
+        if (i === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => goToSlide(i));
+        indicatorsContainer.appendChild(indicator);
+      }
+      
+      const indicators = indicatorsContainer.querySelectorAll('.testimonials-carousel-indicator');
+      
+      function updateCarousel() {
+        const slideWidth = slidesPerView === 1 ? 100 : 50;
+        const translateX = -(currentIndex * slideWidth);
+        track.style.transform = `translateX(${translateX}%)`;
+        
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle('active', index === currentIndex);
+        });
+        
+        // Update button states
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === totalGroups - 1;
+      }
+      
+      function goToSlide(index) {
+        currentIndex = Math.max(0, Math.min(index, totalGroups - 1));
+        updateCarousel();
+        resetAutoRotate();
+      }
+      
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalGroups;
+        updateCarousel();
+        resetAutoRotate();
+      }
+      
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalGroups) % totalGroups;
+        updateCarousel();
+        resetAutoRotate();
+      }
+      
+      function startAutoRotate() {
+        autoRotateInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+      }
+      
+      function resetAutoRotate() {
+        clearInterval(autoRotateInterval);
+        startAutoRotate();
+      }
+      
+      function handleResize() {
+        const newSlidesPerView = window.innerWidth <= 768 ? 1 : 2;
+        if (newSlidesPerView !== slidesPerView) {
+          slidesPerView = newSlidesPerView;
+          totalGroups = Math.ceil(totalSlides / slidesPerView);
+          currentIndex = 0;
+          updateCarousel();
+        }
+      }
+      
+      // Event listeners
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      
+      // Pause on hover
+      carousel.addEventListener('mouseenter', () => clearInterval(autoRotateInterval));
+      carousel.addEventListener('mouseleave', startAutoRotate);
+      
+      // Handle window resize
+      window.addEventListener('resize', handleResize);
+      
+      // Initialize
+      updateCarousel();
+      startAutoRotate();
+    })();
+  </script>
 </body>
 
 </html>

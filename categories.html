@@ -69,6 +69,52 @@
             cursor: pointer;
             overflow: hidden;
             transition: all var(--transition-base);
+            border: 3px solid var(--border-color);
+            box-sizing: border-box;
+        }
+
+        /* Remove borders on rightmost column and bottom row for clean grid effect */
+        .category-tile:nth-child(3n) {
+            border-right: none;
+        }
+
+        .category-tile:nth-child(7),
+        .category-tile:nth-child(8),
+        .category-tile:nth-child(9) {
+            border-bottom: none;
+        }
+
+        @media (max-width: 991px) {
+            /* 2-column layout: remove right border on even items */
+            .category-tile:nth-child(3n) {
+                border-right: 3px solid var(--border-color);
+            }
+
+            .category-tile:nth-child(2n) {
+                border-right: none;
+            }
+
+            /* Remove bottom border on last 2 items */
+            .category-tile:nth-child(8),
+            .category-tile:nth-child(9) {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 575px) {
+            /* Single column: only horizontal borders between items */
+            .category-tile {
+                border-left: none;
+                border-right: none;
+            }
+
+            .category-tile:not(:last-child) {
+                border-bottom: 3px solid var(--border-color);
+            }
+
+            .category-tile:last-child {
+                border-bottom: none;
+            }
         }
 
         .category-tile:hover {
@@ -76,56 +122,56 @@
             z-index: 2;
         }
 
-        /* Color variations for museum-style tiles */
+        /* Color variations for museum-style tiles - Pattern based on grid position */
         .category-tile.tile-gold {
-            background: var(--primary-gold);
+            background: #FB8E4D; /* Orange color - Center position (RGB: 251, 142, 77) */
         }
 
         .category-tile.tile-gold .tile-title,
         .category-tile.tile-gold .tile-count {
+            color: #FFFFFF;
+        }
+
+        .category-tile.tile-pale-gold {
+            background: var(--primary-gold); /* Bright yellow/gold - Top-left, Bottom-right (same as center was) */
+        }
+
+        .category-tile.tile-pale-gold .tile-title,
+        .category-tile.tile-pale-gold .tile-count {
             color: var(--bg-primary);
         }
 
-        .category-tile.tile-dark {
-            background: var(--bg-primary);
+        .category-tile.tile-white {
+            background: var(--bg-secondary); /* Dark mode: uses secondary background */
         }
 
-        .category-tile.tile-dark .tile-title {
+        .category-tile.tile-white .tile-title {
             color: var(--text-primary);
         }
 
-        .category-tile.tile-dark .tile-count {
+        .category-tile.tile-white .tile-count {
             color: var(--primary-gold);
         }
 
-        .category-tile.tile-soft {
-            background: var(--primary-gold-soft);
+        body.light-mode .category-tile.tile-white {
+            background: #FFFFFF; /* Light mode: pure white */
         }
 
-        .category-tile.tile-soft .tile-title,
-        .category-tile.tile-soft .tile-count {
-            color: var(--bg-primary);
+        body.light-mode .category-tile.tile-white .tile-title {
+            color: #121212;
         }
 
-        .category-tile.tile-secondary {
-            background: var(--bg-secondary);
-        }
-
-        .category-tile.tile-secondary .tile-title {
-            color: var(--text-primary);
-        }
-
-        .category-tile.tile-secondary .tile-count {
+        body.light-mode .category-tile.tile-white .tile-count {
             color: var(--primary-gold);
         }
 
-        .category-tile.tile-light {
-            background: var(--primary-gold-light);
+        .category-tile.tile-tan {
+            background: #D2B48C; /* Light brown/tan - Top-right, Bottom-left */
         }
 
-        .category-tile.tile-light .tile-title,
-        .category-tile.tile-light .tile-count {
-            color: var(--bg-primary);
+        .category-tile.tile-tan .tile-title,
+        .category-tile.tile-tan .tile-count {
+            color: #121212;
         }
 
         .tile-image {
@@ -220,63 +266,72 @@
 
     <!-- Editorial Category Grid -->
     <section class="editorial-grid">
-        <a href="live.html?category=art" class="category-tile tile-gold">
+        <!-- Position 1: Top-left - Light yellow/pale gold -->
+        <a href="live.html?category=art" class="category-tile tile-pale-gold">
             <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=200&h=200&fit=crop" alt="Art"
                 class="tile-image">
             <h2 class="tile-title">Art</h2>
             <span class="tile-count">89 Items</span>
         </a>
 
-        <a href="live.html?category=asian-art" class="category-tile tile-dark">
+        <!-- Position 2: Top-middle - White -->
+        <a href="live.html?category=asian-art" class="category-tile tile-white">
             <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=200&h=200&fit=crop" alt="Asian Art"
                 class="tile-image">
             <h2 class="tile-title">Asian & Tribal Art</h2>
             <span class="tile-count">45 Items</span>
         </a>
 
-        <a href="live.html?category=coins" class="category-tile tile-soft">
+        <!-- Position 3: Top-right - Light brown/tan -->
+        <a href="live.html?category=coins" class="category-tile tile-tan">
             <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=200&h=200&fit=crop" alt="Coins"
                 class="tile-image">
             <h2 class="tile-title">Coins & Stamps</h2>
             <span class="tile-count">156 Items</span>
         </a>
 
-        <a href="live.html?category=watches" class="category-tile tile-secondary">
+        <!-- Position 4: Middle-left - White -->
+        <a href="live.html?category=watches" class="category-tile tile-white">
             <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=200&h=200&fit=crop" alt="Watches"
                 class="tile-image">
             <h2 class="tile-title">Watches, Pens & Lighters</h2>
             <span class="tile-count">124 Items</span>
         </a>
 
-        <a href="live.html?category=wine" class="category-tile tile-light">
+        <!-- Position 5: Center - Bright yellow/goldenrod -->
+        <a href="live.html?category=wine" class="category-tile tile-gold">
             <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=200&h=200&fit=crop" alt="Wine"
                 class="tile-image">
             <h2 class="tile-title">Wine, Whisky & Spirits</h2>
             <span class="tile-count">67 Items</span>
         </a>
 
-        <a href="live.html?category=jewelry" class="category-tile tile-gold">
+        <!-- Position 6: Middle-right - White -->
+        <a href="live.html?category=jewelry" class="category-tile tile-white">
             <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=200&h=200&fit=crop" alt="Jewelry"
                 class="tile-image">
             <h2 class="tile-title">Jewelry</h2>
             <span class="tile-count">198 Items</span>
         </a>
 
-        <a href="live.html?category=antiques" class="category-tile tile-dark">
+        <!-- Position 7: Bottom-left - Light brown/tan -->
+        <a href="live.html?category=antiques" class="category-tile tile-tan">
             <img src="https://images.unsplash.com/photo-1582582621959-48d27397dc69?w=200&h=200&fit=crop" alt="Antiques"
                 class="tile-image">
             <h2 class="tile-title">Antiques</h2>
             <span class="tile-count">78 Items</span>
         </a>
 
-        <a href="live.html?category=cars" class="category-tile tile-soft">
+        <!-- Position 8: Bottom-middle - White -->
+        <a href="live.html?category=cars" class="category-tile tile-white">
             <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=200&h=200&fit=crop"
                 alt="Classic Cars" class="tile-image">
             <h2 class="tile-title">Classic Cars</h2>
             <span class="tile-count">34 Items</span>
         </a>
 
-        <a href="live.html?category=books" class="category-tile tile-secondary">
+        <!-- Position 9: Bottom-right - Light yellow/pale gold -->
+        <a href="live.html?category=books" class="category-tile tile-pale-gold">
             <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=200&h=200&fit=crop" alt="Books"
                 class="tile-image">
             <h2 class="tile-title">Rare Books</h2>

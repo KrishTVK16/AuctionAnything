@@ -509,8 +509,18 @@
     border: 1px solid var(--border-color);
 }
 
+body.light-mode .btn-dark {
+    background: #0A0A0A;
+    border-color: #0A0A0A;
+}
+
 .btn-dark:hover {
     background: var(--bg-secondary);
+    border-color: var(--primary-gold);
+}
+
+body.light-mode .btn-dark:hover {
+    background: #1A1A1A;
     border-color: var(--primary-gold);
 }
 
