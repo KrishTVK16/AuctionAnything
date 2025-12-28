@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ankand Admin Dashboard - Manage auctions, users, and platform operations">
+    <title>Admin Dashboard — Ankand | Control Center</title>
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/utilities.css">
+
+    <style>
+        /* Admin Dashboard Specific Styles */
+        :root {
+            --admin-bg: #0a0a0a;
+            --admin-card-bg: rgba(255, 255, 255, 0.03);
+            --admin-card-border: rgba(255, 183, 3, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --gold: #FFB703;
+            --green: #22c55e;
+            --red: #ef4444;
+            --yellow: #FFB703;
+            --blue: #3b82f6;
+            --orange: #f97316;
+            --purple: #a855f7;
+        }
+
+        body.light-mode {
+            --admin-bg: #f5f5f5;
+            --admin-card-bg: rgba(255, 255, 255, 0.95);
+            --admin-card-border: rgba(255, 183, 3, 0.25);
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+        }
+
+        /* Dashboard Navbar - Matching user dashboard */
+        .dashboard-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, #FFB703 0%, #FB8500 100%);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 32px;
+        }
+
+        .dashboard-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-brand:hover {
+            transform: translateY(-2px);
+        }
+
+        .dashboard-logo-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            filter: brightness(0);
+        }
+
+        .dashboard-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0a0a0a;
+            line-height: 1;
+        }
+
+        .dashboard-tagline {
+            font-size: 0.65rem;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 2px;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .dashboard-theme-toggle {
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            color: #0a0a0a;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .dashboard-theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: rotate(20deg);
+        }
+
+        .dashboard-user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            color: #0a0a0a;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-user-info:hover {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .dashboard-user-info i {
+            font-size: 24px;
+        }
+
+        .dashboard-swap-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            color: #0a0a0a;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            margin-left: 4px;
+        }
+
+        .dashboard-swap-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: rotate(180deg);
+            border-color: rgba(0, 0, 0, 0.25);
+        }
+
+        .dashboard-logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #0a0a0a;
+            color: #FFB703;
+            border: 2px solid #0a0a0a;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-logout-btn:hover {
+            background: #1a1a1a;
+            border-color: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-logout-btn i {
+            font-size: 18px;
+        }
+
+        /* Mobile Menu */
+        .dashboard-mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 3px;
+            background: #0a0a0a;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 280px;
+            max-width: 90vw;
+            background: var(--admin-bg);
+            border-bottom-left-radius: 16px;
+            box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 24px;
+            flex-direction: column;
+            gap: 16px;
+            border: 2px solid var(--admin-card-border);
+            border-top: none;
+        }
+
+        .dashboard-mobile-menu.active {
+            display: flex;
+        }
+
+        /* Admin Container */
+        .admin-container {
+            background: var(--admin-bg);
+            min-height: 100vh;
+            padding-top: 120px;
+            padding-bottom: 60px;
+        }
+
+        .admin-header {
+            margin-bottom: 40px;
+        }
+
+        .admin-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .admin-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Admin Stats Grid */
+        .admin-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: var(--admin-card-bg);
+            border: 2px solid var(--admin-card-border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--stat-color, var(--gold));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--stat-color, var(--gold));
+            box-shadow: 0 10px 30px rgba(255, 183, 3, 0.2);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 183, 3, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--stat-color, var(--gold));
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .trend-up {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--green);
+        }
+
+        .trend-down {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--red);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-footer {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--admin-card-border);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Admin Section */
+        .admin-section {
+            margin-bottom: 50px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--gold);
+        }
+
+        .section-action {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .section-action:hover {
+            color: var(--gold);
+            transform: translateX(4px);
+        }
+
+        /* Data Table */
+        .data-table-container {
+            background: var(--admin-card-bg);
+            border: 2px solid var(--admin-card-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table thead {
+            background: rgba(255, 183, 3, 0.1);
+        }
+
+        .data-table th {
+            padding: 16px 20px;
+            text-align: left;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--admin-card-border);
+        }
+
+        .data-table td {
+            padding: 16px 20px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--admin-card-border);
+        }
+
+        .data-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(255, 183, 3, 0.05);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-live {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .status-ending {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--red);
+            border: 1px solid var(--red);
+        }
+
+        .status-upcoming {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--blue);
+            border: 1px solid var(--blue);
+        }
+
+        .status-completed {
+            background: rgba(160, 160, 160, 0.1);
+            color: var(--text-secondary);
+            border: 1px solid var(--text-secondary);
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--admin-card-border);
+            background: transparent;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .action-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(255, 183, 3, 0.1);
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        .chart-card {
+            background: var(--admin-card-bg);
+            border: 2px solid var(--admin-card-border);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .chart-header {
+            margin-bottom: 24px;
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .chart-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .chart-card .admin-stats-grid {
+            margin-bottom: 0;
+        }
+
+        /* Transaction items - fix overflow */
+        .chart-card>div>div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255, 183, 3, 0.05);
+            border-radius: 8px;
+            border: 1px solid var(--admin-card-border);
+            gap: 12px;
+            min-width: 0;
+            /* Allow shrinking */
+        }
+
+        .chart-card>div>div>div:first-child {
+            flex: 1;
+            min-width: 0;
+            /* Allow shrinking */
+            overflow: hidden;
+        }
+
+        .chart-card>div>div>div:last-child {
+            flex-shrink: 0;
+            text-align: right;
+            min-width: 80px;
+        }
+
+        .chart-card>div>div strong {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chart-card>div>div>div:first-child>div:last-child {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chart-card>div>div>div:last-child>div:first-child {
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .chart-card>div>div>div:last-child>div:last-child {
+            font-size: 0.875rem;
+            white-space: nowrap;
+        }
+
+        /* Section header alignment */
+        .section-header {
+            text-align: left;
+        }
+
+        .section-title {
+            text-align: left;
+        }
+
+        /* Admin header - center on desktop, center on mobile */
+        .admin-header {
+            text-align: center;
+        }
+
+
+        /* ===== TEXT TRUNCATION & NO-WRAP RULES ===== */
+
+        /* Prevent text wrapping in all titles and labels */
+        .admin-title,
+        .admin-subtitle,
+        .stat-label,
+        .chart-title,
+        .chart-subtitle {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Section titles - allow wrapping if needed */
+        .section-title {
+            white-space: normal;
+            max-width: 100%;
+        }
+
+        /* Table cells - prevent wrapping and truncate */
+        .data-table th,
+        .data-table td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+            /* Prevents extremely wide cells */
+        }
+
+        /* Specific column width controls for better consistency */
+        .data-table th:nth-child(1),
+        .data-table td:nth-child(1) {
+            max-width: 100px;
+            /* Auction ID */
+        }
+
+        .data-table th:nth-child(2),
+        .data-table td:nth-child(2) {
+            max-width: 250px;
+            /* Item name */
+        }
+
+        .data-table th:nth-child(3),
+        .data-table td:nth-child(3) {
+            max-width: 120px;
+            /* Current Bid */
+        }
+
+        .data-table th:nth-child(7),
+        .data-table td:nth-child(7) {
+            min-width: 100px;
+            /* Actions column */
+        }
+
+        /* Status badges - prevent wrapping */
+        .status-badge {
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Stat cards - prevent footer text from wrapping */
+        .stat-footer {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Stat values - ensure numbers don't break */
+        .stat-value {
+            white-space: nowrap;
+        }
+
+        /* Trend indicators - keep inline */
+        .stat-trend {
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Action buttons - consistent sizing */
+        .action-btn {
+            min-width: 80px;
+            white-space: nowrap;
+        }
+
+        /* Card titles in transaction lists */
+        .chart-card strong {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        /* Ensure flex items don't shrink unexpectedly */
+        .stat-icon {
+            flex-shrink: 0;
+        }
+
+        /* User avatars and names - no wrapping */
+        .data-table td div {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Section action links - no wrap */
+        .section-action {
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-navbar-container {
+                padding: 12px 16px;
+            }
+
+            .dashboard-user-info,
+            .dashboard-logout-btn {
+                display: none;
+            }
+
+            .dashboard-mobile-toggle {
+                display: flex;
+            }
+
+            .admin-container {
+                padding-top: 100px;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .admin-title {
+                font-size: 1.75rem;
+                white-space: normal;
+                text-align: center;
+            }
+
+            .admin-subtitle {
+                white-space: normal;
+                font-size: 0.9rem;
+            }
+
+            .admin-stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            /* Stat cards - reduce sizes */
+            .stat-card {
+                padding: 20px;
+            }
+
+            .stat-value {
+                font-size: 1.75rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            .stat-footer {
+                font-size: 0.8rem;
+            }
+
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .stat-trend {
+                font-size: 0.75rem;
+                padding: 3px 6px;
+            }
+
+            /* Section titles - reduce size */
+            .section-title {
+                font-size: 1.25rem;
+                white-space: normal;
+            }
+
+            .section-title i {
+                font-size: 1.1rem;
+            }
+
+            /* Charts grid */
+            .charts-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            /* Chart cards - reduce padding */
+            .chart-card {
+                padding: 20px;
+            }
+
+            .chart-title {
+                font-size: 1.1rem;
+            }
+
+            .chart-subtitle {
+                font-size: 0.8rem;
+            }
+
+            /* Payment distribution - FIX OVERFLOW */
+            .payment-distribution-grid {
+                gap: 12px !important;
+            }
+
+            .payment-distribution-grid>div {
+                min-width: 120px !important;
+                min-height: 180px !important;
+                padding: 32px 20px !important;
+            }
+
+            .payment-distribution-grid>div>div:first-child {
+                font-size: 0.8rem !important;
+                margin-bottom: 12px !important;
+            }
+
+            .payment-distribution-grid>div>div:nth-child(2) {
+                font-size: 2.5rem !important;
+                font-weight: 700 !important;
+                line-height: 1 !important;
+                margin-bottom: 12px !important;
+            }
+
+            .payment-distribution-grid>div>div:last-child {
+                font-size: 1rem !important;
+                margin-top: 12px !important;
+            }
+
+            /* Transaction items - reduce sizes */
+            .chart-card>div>div {
+                padding: 10px;
+                gap: 8px;
+            }
+
+            .chart-card>div>div strong {
+                font-size: 0.9rem;
+            }
+
+            .chart-card>div>div>div:first-child>div:last-child {
+                font-size: 0.75rem;
+            }
+
+            .chart-card>div>div>div:last-child>div:first-child {
+                font-size: 0.95rem;
+            }
+
+            .chart-card>div>div>div:last-child>div:last-child {
+                font-size: 0.75rem;
+            }
+
+            /* Data tables */
+            .data-table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .data-table {
+                min-width: 800px;
+                font-size: 0.85rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 12px 16px;
+            }
+
+            /* User table - better column widths */
+            .data-table th:nth-child(1),
+            .data-table td:nth-child(1) {
+                min-width: 180px;
+                /* Increase for user info */
+            }
+
+            .data-table th:nth-child(2),
+            .data-table td:nth-child(2) {
+                min-width: 80px;
+                /* Total bids */
+                max-width: 100px;
+            }
+
+            .data-table th:nth-child(3),
+            .data-table td:nth-child(3) {
+                min-width: 80px;
+                /* Won auctions */
+                max-width: 100px;
+            }
+
+            .data-table th:nth-child(4),
+            .data-table td:nth-child(4) {
+                min-width: 100px;
+                /* Total spent */
+                max-width: 120px;
+            }
+
+            /* User avatars in table */
+            .data-table td div[style*="width: 40px"] {
+                width: 32px !important;
+                height: 32px !important;
+                font-size: 0.8rem;
+            }
+
+            .data-table td div[style*="display: flex"] strong {
+                font-size: 0.85rem;
+            }
+
+            .data-table td div[style*="display: flex"]>div>div:last-child {
+                font-size: 0.75rem;
+            }
+
+            /* Status badges - reduce size */
+            .status-badge {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+
+            .status-badge i {
+                font-size: 0.7rem;
+            }
+
+            /* Action buttons */
+            .action-btn {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+                min-width: 70px;
+            }
+
+            /* Section headers */
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .section-action {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-title {
+                font-size: 1.5rem;
+            }
+
+            .admin-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+
+            .stat-footer {
+                font-size: 0.75rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+
+            .chart-title {
+                font-size: 1rem;
+            }
+
+            /* Payment percentages - extra small screens */
+            .payment-distribution-grid>div {
+                min-height: 160px !important;
+                padding: 28px 16px !important;
+            }
+
+            .payment-distribution-grid>div>div:nth-child(2) {
+                font-size: 2.25rem !important;
+            }
+
+            /* Table even smaller */
+            .data-table {
+                font-size: 0.8rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 10px 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+
+            /* Extra small screens */
+            .payment-distribution-grid>div {
+                min-height: 140px !important;
+                padding: 24px 12px !important;
+            }
+
+            .payment-distribution-grid>div>div:first-child {
+                font-size: 0.7rem !important;
+                margin-bottom: 10px !important;
+            }
+
+            .payment-distribution-grid>div>div:nth-child(2) {
+                font-size: 2rem !important;
+                margin-bottom: 10px !important;
+            }
+
+            .payment-distribution-grid>div>div:last-child {
+                font-size: 0.95rem !important;
+                margin-top: 10px !important;
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Dashboard Header -->
+    <nav class="dashboard-navbar">
+        <div class="dashboard-navbar-container">
+            <!-- Left: Logo -->
+            <a href="index.html" class="dashboard-brand">
+                <img src="images/logo.svg" alt="Ankand Logo" class="dashboard-logo-icon">
+                <div class="dashboard-brand-text">
+                    <div class="dashboard-logo-text">Ankand</div>
+                    <div class="dashboard-tagline">Admin Panel</div>
+                </div>
+            </a>
+
+            <!-- Right: User Actions -->
+            <div class="dashboard-actions">
+                <!-- Theme Toggle -->
+                <button class="dashboard-theme-toggle" id="dashboardThemeToggle" aria-label="Toggle dark mode">
+                    <i class="bi bi-sun-fill"></i>
+                </button>
+
+                <!-- User Info - Desktop Only -->
+                <div class="dashboard-user-info">
+                    <i class="bi bi-shield-fill-check"></i>
+                    <span class="dashboard-username">Admin</span>
+                    <button class="dashboard-swap-btn" id="desktopSwapBtn" aria-label="Swap to User"
+                        title="Switch to User mode">
+                        <i class="bi bi-arrow-left-right"></i>
+                    </button>
+                </div>
+
+                <!-- Logout Button - Desktop Only -->
+                <a href="index.html" class="dashboard-logout-btn">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="dashboard-mobile-toggle" id="dashboardMobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="dashboard-mobile-menu" id="dashboardMobileMenu">
+            <div class="dashboard-mobile-user">
+                <i class="bi bi-shield-fill-check"></i>
+                <div class="dashboard-mobile-user-content">
+                    <span>Admin</span>
+                    <button class="dashboard-swap-btn-mobile" id="mobileSwapBtn" aria-label="Swap to User"
+                        title="Switch to User mode">
+                        <i class="bi bi-arrow-left-right"></i>
+                        <span>Switch to User</span>
+                    </button>
+                </div>
+            </div>
+            <a href="index.html" class="dashboard-mobile-logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Admin Container -->
+    <div class="admin-container">
+        <div class="container">
+            <!-- Admin Header -->
+            <div class="admin-header text-center">
+                <h1 class="admin-title">Admin Control Center</h1>
+                <p class="admin-subtitle">Monitor and manage all auction platform operations</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="admin-stats-grid">
+                <!-- Live Auctions -->
+                <div class="stat-card" style="--stat-color: #22c55e;">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="bi bi-lightning-fill"></i>
+                        </div>
+                        <div class="stat-trend trend-up">
+                            <i class="bi bi-arrow-up"></i>
+                            12%
+                        </div>
+                    </div>
+                    <div class="stat-label">Live Auctions</div>
+                    <div class="stat-value">14</div>
+                    <div class="stat-footer">
+                        <i class="bi bi-clock"></i> 3 ending in next hour
+                    </div>
+                </div>
+
+                <!-- Active Bidders -->
+                <div class="stat-card" style="--stat-color: #3b82f6;">
+                    <div class="stat-header">
+                        <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--blue);">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
+                        <div class="stat-trend trend-up">
+                            <i class="bi bi-arrow-up"></i>
+                            8%
+                        </div>
+                    </div>
+                    <div class="stat-label">Total Bidders</div>
+                    <div class="stat-value">1,520</div>
+                    <div class="stat-footer">
+                        <i class="bi bi-activity"></i> 342 active now
+                    </div>
+                </div>
+
+                <!-- Total Bids Today -->
+                <div class="stat-card" style="--stat-color: #FFB703;">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="bi bi-hammer"></i>
+                        </div>
+                        <div class="stat-trend trend-up">
+                            <i class="bi bi-arrow-up"></i>
+                            24%
+                        </div>
+                    </div>
+                    <div class="stat-label">Total Bids Today</div>
+                    <div class="stat-value">892</div>
+                    <div class="stat-footer">
+                        <i class="bi bi-graph-up"></i> Above average
+                    </div>
+                </div>
+
+                <!-- Revenue Today -->
+                <div class="stat-card" style="--stat-color: #a855f7;">
+                    <div class="stat-header">
+                        <div class="stat-icon" style="background: rgba(168, 85, 247, 0.1); color: var(--purple);">
+                            <i class="bi bi-currency-euro"></i>
+                        </div>
+                        <div class="stat-trend trend-up">
+                            <i class="bi bi-arrow-up"></i>
+                            15%
+                        </div>
+                    </div>
+                    <div class="stat-label">Revenue Today</div>
+                    <div class="stat-value">€52.8K</div>
+                    <div class="stat-footer">
+                        <i class="bi bi-calendar-check"></i> €1.2M this month
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 1: Live Auction Management -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="bi bi-broadcast"></i>
+                        Live Auction Management
+                    </h2>
+                    <a href="#" class="section-action">View All <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Auction ID</th>
+                                <th>Item</th>
+                                <th>Current Bid</th>
+                                <th>Bids</th>
+                                <th>Time Remaining</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#A2401</td>
+                                <td>
+                                    <strong style="color: var(--text-primary);">Vintage Rolex Watch</strong>
+                                </td>
+                                <td>
+                                    <strong style="color: var(--gold); font-size: 1.1rem;">€12,500</strong>
+                                </td>
+                                <td>92</td>
+                                <td>2h 34m</td>
+                                <td><span class="status-badge status-live"><i class="bi bi-circle-fill"></i>Live</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn">Manage</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#A2402</td>
+                                <td>
+                                    <strong style="color: var(--text-primary);">Abstract Oil Painting</strong>
+                                </td>
+                                <td>
+                                    <strong style="color: var(--gold); font-size: 1.1rem;">€8,350</strong>
+                                </td>
+                                <td>67</td>
+                                <td>45m</td>
+                                <td><span class="status-badge status-ending"><i
+                                            class="bi bi-exclamation-circle-fill"></i>Ending
+                                        Soon</span></td>
+                                <td>
+                                    <button class="action-btn">Manage</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#A2403</td>
+                                <td>
+                                    <strong style="color: var(--text-primary);">Diamond Necklace</strong>
+                                </td>
+                                <td>
+                                    <strong style="color: var(--gold); font-size: 1.1rem;">€24,800</strong>
+                                </td>
+                                <td>128</td>
+                                <td>5h 12m</td>
+                                <td><span class="status-badge status-live"><i class="bi bi-circle-fill"></i>Live</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn">Manage</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#A2404</td>
+                                <td>
+                                    <strong style="color: var(--text-primary);">Ferrari 250 GTO</strong>
+                                </td>
+                                <td>
+                                    <strong style="color: var(--gold); font-size: 1.1rem;">€485,000</strong>
+                                </td>
+                                <td>45</td>
+                                <td>1 day 3h</td>
+                                <td><span class="status-badge status-live"><i class="bi bi-circle-fill"></i>Live</span>
+                                </td>
+                                <td>
+                                    <button class="action-btn">Manage</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 2: Payment Status Overview -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="bi bi-credit-card"></i>
+                        Payment Status Overview
+                    </h2>
+                    <a href="#" class="section-action">View All <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <div class="charts-grid">
+                    <!-- Payment Distribution -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Payment Distribution</h3>
+                            <p class="chart-subtitle">Current month overview</p>
+                        </div>
+                        <div class="payment-distribution-grid"
+                            style="display: flex; gap: 24px; justify-content: space-around; margin-bottom: 0; flex-wrap: wrap;">
+                            <div
+                                style="flex: 1; min-width: 180px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 40px 32px; background: rgba(34, 197, 94, 0.05); border-radius: 16px; border: 1px solid rgba(34, 197, 94, 0.15);">
+                                <div
+                                    style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; white-space: nowrap; overflow: visible;">
+                                    Paid</div>
+                                <div
+                                    style="font-size: 3rem; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 16px;">
+                                    72%</div>
+                                <div
+                                    style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 16px; font-weight: 600;">
+                                    €892K</div>
+                            </div>
+                            <div
+                                style="flex: 1; min-width: 180px; min-height: 220px; display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 40px 32px; background: rgba(255, 183, 3, 0.05); border-radius: 16px; border: 1px solid rgba(255, 183, 3, 0.15);">
+                                <div
+                                    style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; white-space: nowrap; overflow: visible;">
+                                    Pending</div>
+                                <div
+                                    style="font-size: 3rem; font-weight: 700; color: var(--orange); line-height: 1; margin-bottom: 16px;">
+                                    28%</div>
+                                <div
+                                    style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 16px; font-weight: 600;">
+                                    €348K</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Recent Transactions</h3>
+                            <p class="chart-subtitle">Last 24 hours</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div
+                                style="display: flex; justify-content: space-between; padding: 12px; background: rgba(255, 183, 3, 0.05); border-radius: 8px; border: 1px solid var(--admin-card-border);">
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Diamond Necklace</div>
+                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">John Smith</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-weight: 700; color: var(--green);">€24,800</div>
+                                    <div style="font-size: 0.875rem; color: var(--green);">Paid</div>
+                                </div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; padding: 12px; background: rgba(255, 183, 3, 0.05); border-radius: 8px; border: 1px solid var(--admin-card-border);">
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Vintage Watch</div>
+                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">Emma Wilson</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-weight: 700; color: var(--orange);">€12,500</div>
+                                    <div style="font-size: 0.875rem; color: var(--orange);">Pending</div>
+                                </div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; padding: 12px; background: rgba(255, 183, 3, 0.05); border-radius: 8px; border: 1px solid var(--admin-card-border);">
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Art Deco Lamp</div>
+                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">Michael Chen</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-weight: 700; color: var(--green);">€3,200</div>
+                                    <div style="font-size: 0.875rem; color: var(--green);">Paid</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: Fraud & Risk Management -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="bi bi-shield-exclamation"></i>
+                        Fraud & Risk Management
+                    </h2>
+                    <a href="#" class="section-action">View All <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <div class="admin-stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="stat-card" style="--stat-color: #ef4444;">
+                        <div class="stat-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--red);">
+                            <i class="bi bi-flag-fill"></i>
+                        </div>
+                        <div class="stat-label">Flagged Users</div>
+                        <div class="stat-value">11</div>
+                        <div class="stat-footer">Requires review</div>
+                    </div>
+
+                    <div class="stat-card" style="--stat-color: #f97316;">
+                        <div class="stat-icon" style="background: rgba(249, 115, 22, 0.1); color: var(--orange);">
+                            <i class="bi bi-slash-circle-fill"></i>
+                        </div>
+                        <div class="stat-label">Blocked Bids</div>
+                        <div class="stat-value">36</div>
+                        <div class="stat-footer">This month</div>
+                    </div>
+
+                    <div class="stat-card" style="--stat-color: #3b82f6;">
+                        <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--blue);">
+                            <i class="bi bi-person-x-fill"></i>
+                        </div>
+                        <div class="stat-label">Suspended Accounts</div>
+                        <div class="stat-value">8</div>
+                        <div class="stat-footer">Active suspensions</div>
+                    </div>
+
+                    <div class="stat-card" style="--stat-color: #22c55e;">
+                        <div class="stat-icon" style="background: rgba(34, 197, 94, 0.1); color: var(--green);">
+                            <i class="bi bi-check-circle-fill"></i>
+                        </div>
+                        <div class="stat-label">Resolved Cases</div>
+                        <div class="stat-value">124</div>
+                        <div class="stat-footer">This month</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: User Activity -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="bi bi-activity"></i>
+                        Top Bidders Activity
+                    </h2>
+                    <a href="#" class="section-action">View All <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Total Bids</th>
+                                <th>Won Auctions</th>
+                                <th>Total Spent</th>
+                                <th>Active Bids</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <div
+                                            style="width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; color: #0a0a0a; font-weight: 700;">
+                                            JS
+                                        </div>
+                                        <div>
+                                            <div style="color: var(--text-primary); font-weight: 600;">John Smith</div>
+                                            <div style="font-size: 0.875rem;">john.smith@email.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>248</td>
+                                <td>32</td>
+                                <td><strong style="color: var(--gold);">€142,500</strong></td>
+                                <td>8</td>
+                                <td><span class="status-badge status-live">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <div
+                                            style="width: 40px; height: 40px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
+                                            EW
+                                        </div>
+                                        <div>
+                                            <div style="color: var(--text-primary); font-weight: 600;">Emma Wilson</div>
+                                            <div style="font-size: 0.875rem;">emma.w@email.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>196</td>
+                                <td>28</td>
+                                <td><strong style="color: var(--gold);">€98,200</strong></td>
+                                <td>5</td>
+                                <td><span class="status-badge status-live">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <div
+                                            style="width: 40px; height: 40px; border-radius: 50%; background: var(--purple); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
+                                            MC
+                                        </div>
+                                        <div>
+                                            <div style="color: var(--text-primary); font-weight: 600;">Michael Chen
+                                            </div>
+                                            <div style="font-size: 0.875rem;">m.chen@email.com</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>172</td>
+                                <td>24</td>
+                                <td><strong style="color: var(--gold);">€76,400</strong></td>
+                                <td>3</td>
+                                <td><span class="status-badge status-live">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+
+    <script>
+        // ===== DASHBOARD NAVBAR FUNCTIONALITY =====
+
+        // Mobile Menu Toggle
+        const dashboardMobileToggle = document.getElementById('dashboardMobileToggle');
+        const dashboardMobileMenu = document.getElementById('dashboardMobileMenu');
+
+        if (dashboardMobileToggle) {
+            dashboardMobileToggle.addEventListener('click', function () {
+                dashboardMobileToggle.classList.toggle('active');
+                dashboardMobileMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const isClickInsideNav = event.target.closest('.dashboard-navbar');
+            if (!isClickInsideNav && dashboardMobileMenu && dashboardMobileMenu.classList.contains('active')) {
+                dashboardMobileMenu.classList.remove('active');
+                dashboardMobileToggle.classList.remove('active');
+            }
+        });
+
+        // Dashboard Theme Toggle
+        const dashboardThemeToggle = document.getElementById('dashboardThemeToggle');
+
+        if (dashboardThemeToggle) {
+            dashboardThemeToggle.addEventListener('click', function () {
+                document.body.classList.toggle('light-mode');
+
+                // Update icon
+                const icon = dashboardThemeToggle.querySelector('i');
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.remove('bi-sun-fill');
+                    icon.classList.add('bi-moon-fill');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    icon.classList.remove('bi-moon-fill');
+                    icon.classList.add('bi-sun-fill');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        }
+
+        // Initialize theme from localStorage
+        document.addEventListener('DOMContentLoaded', function () {
+            const savedTheme = localStorage.getItem('theme');
+            const icon = dashboardThemeToggle?.querySelector('i');
+
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                if (icon) {
+                    icon.classList.remove('bi-sun-fill');
+                    icon.classList.add('bi-moon-fill');
+                }
+            }
+        });
+
+        // ===== SWAP TO USER DASHBOARD FUNCTIONALITY =====
+        const desktopSwapBtn = document.getElementById('desktopSwapBtn');
+        const mobileSwapBtn = document.getElementById('mobileSwapBtn');
+
+        function showSwapConfirmation() {
+            const confirmed = confirm('Do you want to switch to User Dashboard?');
+            if (confirmed) {
+                window.location.href = 'dashboard.html';
+            }
+        }
+
+        if (desktopSwapBtn) {
+            desktopSwapBtn.addEventListener('click', showSwapConfirmation);
+        }
+
+        if (mobileSwapBtn) {
+            mobileSwapBtn.addEventListener('click', showSwapConfirmation);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="sq">
 
 <head>
@@ -318,7 +318,7 @@
       direction: rtl;
     }
 
-    .split-screen-reverse .split-screen-container > * {
+    .split-screen-reverse .split-screen-container>* {
       direction: ltr;
     }
 
@@ -763,8 +763,17 @@
     }
 
     @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.8; }
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
     }
 
     .immersive-newsletter-content h2 {
@@ -775,7 +784,7 @@
       color: var(--text-primary);
     }
 
-    .immersive-newsletter-content > p {
+    .immersive-newsletter-content>p {
       font-size: 1.125rem;
       color: var(--text-secondary);
       line-height: 1.7;
@@ -923,6 +932,132 @@
         text-align: center;
       }
     }
+
+    /* Additional responsive styles for small screens */
+    @media (max-width: 480px) {
+      .immersive-hero {
+        min-height: 450px;
+        padding: var(--space-md);
+      }
+
+      .immersive-title {
+        font-size: clamp(1.5rem, 8vw, 2.5rem) !important;
+        line-height: 1.2;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+      }
+
+      .immersive-description {
+        font-size: clamp(0.875rem, 3vw, 1.125rem) !important;
+        word-wrap: break-word;
+        margin-bottom: var(--space-lg);
+      }
+
+      .immersive-label {
+        font-size: 0.7rem;
+        padding: var(--space-xs) var(--space-sm);
+      }
+
+      .immersive-actions {
+        gap: var(--space-sm);
+        width: 100%;
+        padding: 0 var(--space-sm);
+      }
+
+      .immersive-actions .btn {
+        font-size: 0.75rem;
+        padding: 0.65rem 1rem;
+        width: 100%;
+      }
+
+      .split-screen-container {
+        grid-template-columns: 1fr;
+      }
+
+      .split-screen-content {
+        padding: var(--space-lg);
+      }
+
+      .split-screen-inner h2 {
+        font-size: clamp(1.5rem, 6vw, 2rem) !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+
+      .split-screen-inner p {
+        font-size: 0.95rem;
+        word-wrap: break-word;
+      }
+
+      .split-screen-features li {
+        font-size: 0.9rem;
+      }
+
+      .split-screen-stats {
+        flex-direction: column;
+        gap: var(--space-lg);
+      }
+
+      .split-stat-value {
+        font-size: 2rem;
+      }
+
+      .horizontal-item {
+        width: 260px;
+        height: 380px;
+      }
+
+      .horizontal-collection-header h2 {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+        word-wrap: break-word;
+      }
+
+      .category-showcase-overlay h3 {
+        font-size: 1.25rem;
+        word-wrap: break-word;
+      }
+
+      .immersive-newsletter-content h2 {
+        font-size: clamp(1.5rem, 7vw, 2.5rem) !important;
+        word-wrap: break-word;
+      }
+
+      .immersive-newsletter-content>p {
+        font-size: 0.95rem;
+        word-wrap: break-word;
+      }
+
+      .immersive-newsletter-input-wrapper {
+        min-width: 100%;
+      }
+
+      .immersive-newsletter-form {
+        padding: 0 var(--space-sm);
+      }
+    }
+
+    /* Additional overflow prevention for all text elements */
+    .immersive-title,
+    .split-screen-inner h2,
+    .category-showcase-overlay h3,
+    .horizontal-item-content h4,
+    .immersive-newsletter-content h2 {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      max-width: 100%;
+    }
+
+    .immersive-description,
+    .split-screen-inner p,
+    .category-showcase-overlay p,
+    .horizontal-item-content p,
+    .immersive-newsletter-content p {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+    }
   </style>
 </head>
 
@@ -945,9 +1080,9 @@
         <li><a href="contact.html" class="nav-link">Contact</a></li>
         <!-- Mobile Nav Actions -->
         <div class="mobile-nav-actions">
+          <a href="dashboard.html" class="btn btn-nav-outline"><i class="bi bi-speedometer2"></i> Dashboard</a>
           <a href="login.html" class="btn btn-nav-outline">Login</a>
           <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
-          <a href="live.html" class="btn-join-live">Join Live</a>
         </div>
       </ul>
 
@@ -965,6 +1100,7 @@
         <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
           <i class="bi bi-sun-fill"></i>
         </button>
+        <a href="dashboard.html" class="btn btn-nav-outline"><i class="bi bi-speedometer2"></i> Dashboard</a>
         <a href="login.html" class="btn btn-nav-outline">Login</a>
         <a href="signup.html" class="btn btn-nav-primary">Sign Up</a>
         <a href="live.html" class="btn-join-live">Join Live</a>
@@ -980,7 +1116,8 @@
   <!-- Full-Screen Immersive Hero -->
   <section class="immersive-hero">
     <div class="immersive-hero-background">
-      <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1920&h=1080&fit=crop" alt="Luxury Collection">
+      <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1920&h=1080&fit=crop"
+        alt="Luxury Collection">
       <div class="immersive-hero-overlay"></div>
     </div>
     <div class="immersive-hero-content">
@@ -1023,7 +1160,8 @@
         <!-- Item 1 -->
         <div class="horizontal-item">
           <div class="horizontal-item-image">
-            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=800&fit=crop" alt="Vintage Rolex">
+            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=800&fit=crop"
+              alt="Vintage Rolex">
             <div class="horizontal-item-overlay">
               <span class="auction-badge live-now">Live Now</span>
               <div class="horizontal-item-content">
@@ -1038,7 +1176,8 @@
         <!-- Item 2 -->
         <div class="horizontal-item">
           <div class="horizontal-item-image">
-            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=800&fit=crop" alt="Abstract Art">
+            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=800&fit=crop"
+              alt="Abstract Art">
             <div class="horizontal-item-overlay">
               <span class="auction-badge hot-bid">Hot Bid</span>
               <div class="horizontal-item-content">
@@ -1053,7 +1192,8 @@
         <!-- Item 3 -->
         <div class="horizontal-item">
           <div class="horizontal-item-image">
-            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=800&fit=crop" alt="Diamond Necklace">
+            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=800&fit=crop"
+              alt="Diamond Necklace">
             <div class="horizontal-item-overlay">
               <span class="auction-badge ending-soon">Ending Soon</span>
               <div class="horizontal-item-content">
@@ -1068,7 +1208,8 @@
         <!-- Item 4 -->
         <div class="horizontal-item">
           <div class="horizontal-item-image">
-            <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=600&h=800&fit=crop" alt="Luxury Watch">
+            <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=600&h=800&fit=crop"
+              alt="Luxury Watch">
             <div class="horizontal-item-overlay">
               <span class="auction-badge live-now">Live Now</span>
               <div class="horizontal-item-content">
@@ -1098,7 +1239,8 @@
         <!-- Item 6 -->
         <div class="horizontal-item">
           <div class="horizontal-item-image">
-            <img src="https://images.unsplash.com/photo-1582582621959-48d27397dc69?w=600&h=800&fit=crop" alt="Antique Vase">
+            <img src="https://images.unsplash.com/photo-1582582621959-48d27397dc69?w=600&h=800&fit=crop"
+              alt="Antique Vase">
             <div class="horizontal-item-overlay">
               <div class="horizontal-item-content">
                 <h4>Chinese Porcelain Vase</h4>
@@ -1132,7 +1274,8 @@
   <section class="split-screen-section">
     <div class="split-screen-container">
       <div class="split-screen-image">
-        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=800&fit=crop" alt="Expert Authentication">
+        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=800&fit=crop"
+          alt="Expert Authentication">
       </div>
       <div class="split-screen-content">
         <div class="split-screen-inner split-screen-centered">
@@ -1141,7 +1284,9 @@
             Verified Authenticity
           </span>
           <h2>Every Piece <span class="text-gold">Authenticated</span> by Experts</h2>
-          <p>Our team of 45+ certified appraisers meticulously verify each item before it reaches our platform. From luxury watches to fine art, every piece undergoes rigorous authentication to ensure you bid with complete confidence.</p>
+          <p>Our team of 45+ certified appraisers meticulously verify each item before it reaches our platform. From
+            luxury watches to fine art, every piece undergoes rigorous authentication to ensure you bid with complete
+            confidence.</p>
           <ul class="split-screen-features">
             <li><i class="bi bi-check-circle-fill"></i> Expert certification on every item</li>
             <li><i class="bi bi-check-circle-fill"></i> Provenance documentation included</li>
@@ -1165,7 +1310,8 @@
             Curated Excellence
           </span>
           <h2>Handpicked <span class="text-gold">Premium Collections</span></h2>
-          <p>We don't just list items—we curate masterpieces. Our experts travel the world to source only the finest pieces, ensuring every collection meets our exacting standards of quality, authenticity, and value.</p>
+          <p>We don't just list items—we curate masterpieces. Our experts travel the world to source only the finest
+            pieces, ensuring every collection meets our exacting standards of quality, authenticity, and value.</p>
           <div class="split-screen-stats">
             <div class="split-stat">
               <div class="split-stat-value">850+</div>
@@ -1186,7 +1332,8 @@
         </div>
       </div>
       <div class="split-screen-image">
-        <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1200&h=800&fit=crop" alt="Premium Collection">
+        <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1200&h=800&fit=crop"
+          alt="Premium Collection">
       </div>
     </div>
   </section>
@@ -1200,7 +1347,8 @@
       </div>
       <div class="category-showcase-grid">
         <div class="category-showcase-item large">
-          <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=800&h=600&fit=crop" alt="Luxury Watches">
+          <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=800&h=600&fit=crop"
+            alt="Luxury Watches">
           <div class="category-showcase-overlay">
             <h3>Luxury Watches</h3>
             <p>124 authenticated timepieces</p>
@@ -1232,7 +1380,8 @@
           </div>
         </div>
         <div class="category-showcase-item">
-          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=600&fit=crop" alt="Classic Cars">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=600&fit=crop"
+            alt="Classic Cars">
           <div class="category-showcase-overlay">
             <h3>Classic Cars</h3>
             <p>34 premium vehicles</p>
@@ -1246,7 +1395,8 @@
   <!-- Immersive Testimonials -->
   <section class="immersive-testimonials">
     <div class="immersive-testimonials-background">
-      <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1920&h=800&fit=crop" alt="Luxury Collection">
+      <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1920&h=800&fit=crop"
+        alt="Luxury Collection">
       <div class="immersive-testimonials-overlay"></div>
     </div>
     <div class="container">
@@ -1269,7 +1419,8 @@
                   <div class="immersive-testimonial-icon">
                     <i class="bi bi-quote"></i>
                   </div>
-                  <p class="immersive-testimonial-quote">The authentication process gave me complete confidence. I acquired a stunning vintage Patek Philippe that exceeded my expectations.</p>
+                  <p class="immersive-testimonial-quote">The authentication process gave me complete confidence. I
+                    acquired a stunning vintage Patek Philippe that exceeded my expectations.</p>
                   <div class="immersive-testimonial-author">
                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop"
                       alt="Arben Krasniqi" class="immersive-author-avatar">
@@ -1287,7 +1438,8 @@
                   <div class="immersive-testimonial-icon">
                     <i class="bi bi-quote"></i>
                   </div>
-                  <p class="immersive-testimonial-quote">Selling my late grandfather's art collection was emotional, but Ankand handled everything with professionalism and achieved record prices.</p>
+                  <p class="immersive-testimonial-quote">Selling my late grandfather's art collection was emotional, but
+                    Ankand handled everything with professionalism and achieved record prices.</p>
                   <div class="immersive-testimonial-author">
                     <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop"
                       alt="Elena Hoxha" class="immersive-author-avatar">
@@ -1305,7 +1457,9 @@
                   <div class="immersive-testimonial-icon">
                     <i class="bi bi-quote"></i>
                   </div>
-                  <p class="immersive-testimonial-quote">I've been collecting luxury watches for over 20 years, and Ankand's platform is by far the most trustworthy. Their verification process saved me from potential fraud multiple times.</p>
+                  <p class="immersive-testimonial-quote">I've been collecting luxury watches for over 20 years, and
+                    Ankand's platform is by far the most trustworthy. Their verification process saved me from potential
+                    fraud multiple times.</p>
                   <div class="immersive-testimonial-author">
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop"
                       alt="Genti Berisha" class="immersive-author-avatar">
@@ -1323,7 +1477,9 @@
                   <div class="immersive-testimonial-icon">
                     <i class="bi bi-quote"></i>
                   </div>
-                  <p class="immersive-testimonial-quote">The expert appraisers at Ankand provided detailed documentation for every piece I purchased. Their transparency and professionalism are unmatched in the Albanian market.</p>
+                  <p class="immersive-testimonial-quote">The expert appraisers at Ankand provided detailed documentation
+                    for every piece I purchased. Their transparency and professionalism are unmatched in the Albanian
+                    market.</p>
                   <div class="immersive-testimonial-author">
                     <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&fit=crop"
                       alt="Blerta Demiri" class="immersive-author-avatar">
@@ -1364,7 +1520,8 @@
           </div>
           <h2>Stay <span class="text-gold">Connected</span></h2>
         </div>
-        <p>Be the first to know about exclusive auctions, new collections, and special events. Join our premium newsletter for insider access.</p>
+        <p>Be the first to know about exclusive auctions, new collections, and special events. Join our premium
+          newsletter for insider access.</p>
         <form class="immersive-newsletter-form" id="newsletterForm">
           <div class="immersive-newsletter-input-wrapper">
             <i class="bi bi-envelope"></i>
@@ -1450,23 +1607,23 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Custom JS -->
   <script src="js/script.js"></script>
-  
+
   <!-- Testimonials Carousel Script -->
   <script>
-    (function() {
+    (function () {
       const carousel = document.getElementById('testimonialsCarousel');
       const track = carousel.querySelector('.testimonials-carousel-track');
       const slides = track.querySelectorAll('.testimonials-carousel-slide');
       const prevBtn = document.getElementById('testimonialsPrev');
       const nextBtn = document.getElementById('testimonialsNext');
       const indicatorsContainer = document.getElementById('testimonialsIndicators');
-      
+
       let currentIndex = 0;
       let autoRotateInterval;
       const totalSlides = slides.length;
       let slidesPerView = window.innerWidth <= 768 ? 1 : 2;
       let totalGroups = Math.ceil(totalSlides / slidesPerView);
-      
+
       // Create indicators
       for (let i = 0; i < totalGroups; i++) {
         const indicator = document.createElement('div');
@@ -1475,51 +1632,51 @@
         indicator.addEventListener('click', () => goToSlide(i));
         indicatorsContainer.appendChild(indicator);
       }
-      
+
       const indicators = indicatorsContainer.querySelectorAll('.testimonials-carousel-indicator');
-      
+
       function updateCarousel() {
         const slideWidth = slidesPerView === 1 ? 100 : 50;
         const translateX = -(currentIndex * slideWidth);
         track.style.transform = `translateX(${translateX}%)`;
-        
+
         // Update indicators
         indicators.forEach((indicator, index) => {
           indicator.classList.toggle('active', index === currentIndex);
         });
-        
+
         // Update button states
         prevBtn.disabled = currentIndex === 0;
         nextBtn.disabled = currentIndex === totalGroups - 1;
       }
-      
+
       function goToSlide(index) {
         currentIndex = Math.max(0, Math.min(index, totalGroups - 1));
         updateCarousel();
         resetAutoRotate();
       }
-      
+
       function nextSlide() {
         currentIndex = (currentIndex + 1) % totalGroups;
         updateCarousel();
         resetAutoRotate();
       }
-      
+
       function prevSlide() {
         currentIndex = (currentIndex - 1 + totalGroups) % totalGroups;
         updateCarousel();
         resetAutoRotate();
       }
-      
+
       function startAutoRotate() {
         autoRotateInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
       }
-      
+
       function resetAutoRotate() {
         clearInterval(autoRotateInterval);
         startAutoRotate();
       }
-      
+
       function handleResize() {
         const newSlidesPerView = window.innerWidth <= 768 ? 1 : 2;
         if (newSlidesPerView !== slidesPerView) {
@@ -1529,18 +1686,18 @@
           updateCarousel();
         }
       }
-      
+
       // Event listeners
       nextBtn.addEventListener('click', nextSlide);
       prevBtn.addEventListener('click', prevSlide);
-      
+
       // Pause on hover
       carousel.addEventListener('mouseenter', () => clearInterval(autoRotateInterval));
       carousel.addEventListener('mouseleave', startAutoRotate);
-      
+
       // Handle window resize
       window.addEventListener('resize', handleResize);
-      
+
       // Initialize
       updateCarousel();
       startAutoRotate();

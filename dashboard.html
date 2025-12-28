@@ -1,0 +1,2655 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ankand Dashboard - Manage your bids, watchlist, and auction activity">
+    <title>Dashboard — Ankand | Bidder Control Hub</title>
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/utilities.css">
+
+    <style>
+        /* Dashboard Specific Styles */
+        :root {
+            --dashboard-bg: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 183, 3, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --gold: #FFB703;
+            --green: #22c55e;
+            --red: #ef4444;
+            --yellow: #FFB703;
+            --blue: #3b82f6;
+            --message-bg: #1a1a1a;
+            --message-bg-hover: #242424;
+            --message-bg-unread: #262019;
+            --dock-bg: #121212;
+            --dock-header-bg: #1a1a1a;
+            --dock-tabs-bg: #0f0f0f;
+            --dock-tab-bg: transparent;
+            --dock-tab-hover-bg: #1a1a1a;
+            --dock-tab-active-bg: #1f1f1f;
+        }
+
+        body.light-mode {
+            --dashboard-bg: #f5f5f5;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-border: rgba(255, 183, 3, 0.25);
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --message-bg: #fff8e6;
+            --message-bg-hover: #fff3d6;
+            --message-bg-unread: #ffefc4;
+            --dock-bg: #ffffff;
+            --dock-header-bg: #fafafa;
+            --dock-tabs-bg: #f5f5f5;
+            --dock-tab-bg: transparent;
+            --dock-tab-hover-bg: #fff8e6;
+            --dock-tab-active-bg: #fff3d6;
+        }
+
+        /* ===== DASHBOARD NAVBAR ===== */
+        .dashboard-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, #FFB703 0%, #FB8500 100%);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 32px;
+        }
+
+        /* Logo Brand */
+        .dashboard-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-brand:hover {
+            transform: translateY(-2px);
+        }
+
+        .dashboard-logo-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            filter: brightness(0);
+        }
+
+        .dashboard-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0a0a0a;
+            line-height: 1;
+        }
+
+        .dashboard-tagline {
+            font-size: 0.65rem;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 2px;
+        }
+
+        /* Dashboard Actions Container */
+        .dashboard-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Theme Toggle */
+        .dashboard-theme-toggle {
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            color: #0a0a0a;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .dashboard-theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: rotate(20deg);
+        }
+
+        /* User Info */
+        .dashboard-user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            color: #0a0a0a;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-user-info:hover {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .dashboard-user-info i {
+            font-size: 24px;
+        }
+
+        /* Swap Button - Desktop */
+        .dashboard-swap-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            color: #0a0a0a;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            margin-left: 4px;
+        }
+
+        .dashboard-swap-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: rotate(180deg);
+            border-color: rgba(0, 0, 0, 0.25);
+        }
+
+        .dashboard-swap-btn:active {
+            transform: rotate(180deg) scale(0.95);
+        }
+
+
+        /* Logout Button */
+        .dashboard-logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #0a0a0a;
+            color: #FFB703;
+            border: 2px solid #0a0a0a;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-logout-btn:hover {
+            background: #1a1a1a;
+            border-color: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-logout-btn i {
+            font-size: 18px;
+        }
+
+        /* Mobile Toggle */
+        .dashboard-mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-mobile-toggle:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 3px;
+            background: #0a0a0a;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-mobile-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(8px);
+        }
+
+        .dashboard-mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .dashboard-mobile-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-8px);
+        }
+
+        /* Mobile Menu */
+        .dashboard-mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 280px;
+            max-width: 90vw;
+            background: var(--dashboard-bg);
+            border-bottom-left-radius: 16px;
+            box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 24px;
+            flex-direction: column;
+            gap: 16px;
+            border: 2px solid var(--card-border);
+            border-top: none;
+        }
+
+        .dashboard-mobile-menu.active {
+            display: flex;
+        }
+
+        .dashboard-mobile-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+        }
+
+        .dashboard-mobile-user i {
+            font-size: 32px;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .dashboard-mobile-user-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .dashboard-mobile-user-content>span {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Swap Button - Mobile */
+        .dashboard-swap-btn-mobile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(255, 183, 3, 0.15);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            width: fit-content;
+        }
+
+        .dashboard-swap-btn-mobile:hover {
+            background: rgba(255, 183, 3, 0.25);
+            border-color: var(--gold);
+            transform: translateX(4px);
+        }
+
+        .dashboard-swap-btn-mobile i {
+            font-size: 16px;
+            color: var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-swap-btn-mobile:hover i {
+            transform: rotate(180deg);
+        }
+
+
+        .dashboard-mobile-logout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 24px;
+            background: var(--gold);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-mobile-logout:hover {
+            background: #e5a503;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 183, 3, 0.4);
+        }
+
+        .dashboard-mobile-logout i {
+            font-size: 20px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .dashboard-navbar-container {
+                padding: 12px 16px;
+            }
+
+            .dashboard-user-info,
+            .dashboard-logout-btn {
+                display: none;
+            }
+
+            .dashboard-mobile-toggle {
+                display: flex;
+            }
+
+            .dashboard-logo-text {
+                font-size: 1.25rem;
+            }
+
+            .dashboard-theme-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-logo-text {
+                font-size: 1.1rem;
+            }
+
+            .dashboard-tagline {
+                font-size: 0.6rem;
+            }
+
+            .dashboard-theme-toggle {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+        }
+
+
+        /* ===== SWAP CONFIRMATION MODAL ===== */
+        .swap-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .swap-modal-overlay.active {
+            opacity: 1;
+        }
+
+        .swap-modal {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .swap-modal-overlay.active .swap-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .swap-modal-header {
+            padding: 24px 28px;
+            border-bottom: 2px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .swap-modal-header i {
+            font-size: 28px;
+            color: var(--gold);
+        }
+
+        .swap-modal-header h3 {
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .swap-modal-body {
+            padding: 28px;
+        }
+
+        .swap-modal-body p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .swap-modal-footer {
+            padding: 20px 28px;
+            border-top: 2px solid var(--card-border);
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .swap-modal-btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .swap-modal-cancel {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--card-border);
+        }
+
+        .swap-modal-cancel:hover {
+            background: var(--card-bg);
+            border-color: var(--text-secondary);
+        }
+
+        .swap-modal-confirm {
+            background: var(--gold);
+            color: #0a0a0a;
+        }
+
+        .swap-modal-confirm:hover {
+            background: #e5a503;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 183, 3, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .swap-modal {
+                width: 95%;
+            }
+
+            .swap-modal-header {
+                padding: 20px;
+            }
+
+            .swap-modal-header h3 {
+                font-size: 1.25rem;
+            }
+
+            .swap-modal-body {
+                padding: 20px;
+            }
+
+            .swap-modal-footer {
+                padding: 16px 20px;
+                flex-direction: column;
+            }
+
+            .swap-modal-btn {
+                width: 100%;
+            }
+        }
+
+
+        .dashboard-container {
+            background: var(--dashboard-bg);
+            min-height: 100vh;
+            padding-top: 120px;
+            padding-bottom: 60px;
+        }
+
+        .dashboard-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .dashboard-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .dashboard-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Zone Styling */
+        .dashboard-zone {
+            margin-bottom: 50px;
+        }
+
+        .zone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .zone-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .zone-title i {
+            color: var(--gold);
+        }
+
+        .zone-action {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .zone-action:hover {
+            color: var(--gold);
+            transform: translateX(4px);
+        }
+
+        /* ZONE 1 - Active Bidding Theater */
+        .bid-carousel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .bid-card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .bid-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 183, 3, 0.2);
+            border-color: var(--gold);
+        }
+
+        .bid-card.winning {
+            border-color: var(--green);
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.2);
+        }
+
+        .bid-card.outbid {
+            border-color: var(--red);
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(239, 68, 68, 0.6);
+            }
+        }
+
+        .bid-card.ending-soon {
+            border-color: var(--yellow);
+        }
+
+        .bid-card-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .bid-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .bid-card:hover .bid-card-image img {
+            transform: scale(1.1);
+        }
+
+        .bid-status-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-winning {
+            background: rgba(34, 197, 94, 0.9);
+            color: white;
+        }
+
+        .badge-outbid {
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            animation: pulse-scale 1.5s infinite;
+        }
+
+        @keyframes pulse-scale {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .badge-ending {
+            background: rgba(255, 183, 3, 0.9);
+            color: #0a0a0a;
+        }
+
+        .bid-timer {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .timer-block {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 50px;
+        }
+
+        .timer-value {
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-label {
+            display: block;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bid-card-body {
+            padding: 20px;
+        }
+
+        .bid-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .bid-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 16px;
+        }
+
+        .bid-price-section {
+            flex: 1;
+        }
+
+        .bid-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .bid-amount {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .bid-count {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .bid-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-rebid {
+            flex: 1;
+            padding: 12px 24px;
+            background: var(--gold);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-rebid:hover {
+            background: #e5a503;
+            transform: translateY(-2px);
+        }
+
+        .btn-view-details {
+            padding: 12px 24px;
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--card-border);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view-details:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ZONE 2 - Watchlist Gallery */
+        .watchlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .watchlist-item {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .watchlist-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
+            box-shadow: 0 12px 24px rgba(255, 183, 3, 0.15);
+        }
+
+        .watchlist-image {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .watchlist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .price-change {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .price-down {
+            background: rgba(34, 197, 94, 0.9);
+            color: white;
+        }
+
+        .price-up {
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+        }
+
+        .remove-watchlist {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .watchlist-item:hover .remove-watchlist {
+            opacity: 1;
+        }
+
+        .remove-watchlist:hover {
+            background: var(--red);
+        }
+
+        .time-remaining-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .watchlist-body {
+            padding: 16px;
+        }
+
+        .watchlist-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .watchlist-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .btn-place-bid {
+            width: 100%;
+            padding: 10px;
+            background: var(--gold);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-place-bid:hover {
+            background: #e5a503;
+        }
+
+        /* ZONE 3 - Auction History River */
+        .history-timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+        }
+
+        .timeline-day {
+            margin-bottom: 40px;
+        }
+
+        .timeline-date {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 24px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 3px solid var(--dashboard-bg);
+        }
+
+        .timeline-item.won::before {
+            background: var(--green);
+        }
+
+        .timeline-item.lost::before {
+            background: var(--text-secondary);
+        }
+
+        .timeline-item:hover {
+            border-color: var(--gold);
+            transform: translateX(4px);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .timeline-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-status.won {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--green);
+            border: 1px solid var(--green);
+        }
+
+        .timeline-status.lost {
+            background: rgba(160, 160, 160, 0.1);
+            color: var(--text-secondary);
+            border: 1px solid var(--text-secondary);
+        }
+
+        .timeline-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .timeline-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .timeline-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .timeline-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .timeline-actions {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-timeline {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-timeline {
+            background: var(--gold);
+            color: #0a0a0a;
+            border: none;
+        }
+
+        .btn-primary-timeline:hover {
+            background: #e5a503;
+        }
+
+        .btn-secondary-timeline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary-timeline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* ZONE 4 - Financial Command Center */
+        .financial-center {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .financial-chart {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .donut-chart {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin-bottom: 24px;
+        }
+
+        .donut-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .donut-total-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .donut-total-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .financial-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .legend-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .legend-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .legend-value {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .financial-actions {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .quick-action {
+            padding: 16px;
+            background: rgba(255, 183, 3, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .quick-action:hover {
+            border-color: var(--gold);
+            background: rgba(255, 183, 3, 0.1);
+        }
+
+        .quick-action-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .quick-action-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #0a0a0a;
+        }
+
+        .quick-action-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .quick-action-text p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .quick-action-arrow {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        /* ZONE 5 - Communication Dock */
+        .communication-dock {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--dock-bg);
+            border-top: 2px solid var(--card-border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .dock-header {
+            padding: 16px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--dock-header-bg);
+        }
+
+        .dock-header:hover {
+            background: var(--message-bg-hover);
+        }
+
+        .dock-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .notification-count {
+            background: var(--red);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .dock-toggle {
+            color: var(--gold);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .communication-dock.expanded .dock-toggle {
+            transform: rotate(180deg);
+        }
+
+        .dock-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .communication-dock.expanded .dock-content {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .dock-tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid var(--card-border);
+            padding: 0 24px;
+            background: var(--dock-tabs-bg);
+        }
+
+        .dock-tab {
+            padding: 12px 24px;
+            background: var(--dock-tab-bg);
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s ease;
+        }
+
+        .dock-tab:hover {
+            background: var(--dock-tab-hover-bg);
+            color: var(--text-primary);
+        }
+
+        .dock-tab.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+            background: var(--dock-tab-active-bg);
+        }
+
+        .dock-messages {
+            padding: 20px 24px;
+        }
+
+        .message-item {
+            padding: 16px;
+            background: var(--message-bg);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .message-item:hover {
+            background: var(--message-bg-hover);
+        }
+
+        .message-item.unread {
+            border-left: 4px solid var(--gold);
+            background: var(--message-bg-unread);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .message-sender {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        body.light-mode .message-sender {
+            color: #1a1a1a;
+        }
+
+        .message-time {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        body.light-mode .message-time {
+            color: #666666;
+        }
+
+        .message-preview {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        body.light-mode .message-preview {
+            color: #666666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .bid-carousel {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .financial-center {
+                grid-template-columns: 1fr;
+            }
+
+            .bid-card-image {
+                height: 200px;
+            }
+
+            .watchlist-image {
+                height: 160px;
+            }
+
+            .bid-amount {
+                font-size: 1.5rem;
+            }
+
+            .timeline-price {
+                font-size: 1.35rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding-top: 110px;
+                padding-bottom: 80px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .dashboard-header {
+                text-align: center;
+            }
+
+            .dashboard-title {
+                font-size: 2rem;
+            }
+
+            .zone-title {
+                font-size: 1.5rem;
+            }
+
+            .zone-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .bid-carousel {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .bid-card-image {
+                height: 180px;
+            }
+
+            .bid-card-title {
+                font-size: 1.125rem;
+                text-align: center;
+            }
+
+            .bid-info {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .bid-amount {
+                font-size: 1.5rem;
+            }
+
+            .bid-label {
+                font-size: 0.7rem;
+            }
+
+            .bid-count {
+                font-size: 0.813rem;
+            }
+
+            /* Larger buttons for mobile touch */
+            .btn-rebid,
+            .btn-view-details {
+                padding: 14px 20px;
+                font-size: 0.938rem;
+            }
+
+            .btn-place-bid {
+                padding: 12px;
+                font-size: 0.938rem;
+            }
+
+            .btn-timeline {
+                padding: 10px 18px;
+                font-size: 0.813rem;
+            }
+
+            .watchlist-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 16px;
+            }
+
+            .watchlist-image {
+                height: 150px;
+            }
+
+            .watchlist-body {
+                text-align: center;
+            }
+
+            .watchlist-title {
+                font-size: 0.938rem;
+            }
+
+            .watchlist-price {
+                font-size: 1.125rem;
+            }
+
+            /* Larger touch targets */
+            .remove-watchlist {
+                width: 44px;
+                height: 44px;
+                font-size: 1.25rem;
+                opacity: 1;
+                /* Always visible on mobile */
+            }
+
+            .history-timeline {
+                padding-left: 30px;
+            }
+
+            .history-timeline::before {
+                left: 15px;
+            }
+
+            .timeline-item {
+                padding: 16px;
+                text-align: center;
+            }
+
+            .timeline-header {
+                justify-content: center;
+            }
+
+            .timeline-item::before {
+                left: -33px;
+                width: 10px;
+                height: 10px;
+            }
+
+            .timeline-title {
+                font-size: 1rem;
+            }
+
+            .timeline-price {
+                font-size: 1.25rem;
+            }
+
+            .timeline-meta {
+                font-size: 0.813rem;
+                justify-content: center;
+            }
+
+            .timeline-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-timeline {
+                width: 100%;
+            }
+
+            /* Financial section */
+            .financial-chart {
+                padding: 20px;
+            }
+
+            .donut-chart {
+                width: 200px;
+                height: 200px;
+            }
+
+            .donut-total-value {
+                font-size: 1.75rem;
+            }
+
+            .financial-actions {
+                padding: 20px;
+            }
+
+            .quick-action {
+                padding: 14px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .quick-action-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .quick-action-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.25rem;
+            }
+
+            .quick-action-arrow {
+                display: none;
+            }
+
+            .quick-action-text h4 {
+                font-size: 0.938rem;
+            }
+
+            .quick-action-text p {
+                font-size: 0.813rem;
+            }
+
+            /* Communication dock */
+            .dock-header {
+                padding: 14px 16px;
+            }
+
+            .dock-tab {
+                padding: 12px 16px;
+                font-size: 0.875rem;
+            }
+
+            .dock-messages {
+                padding: 16px;
+            }
+
+            .message-item {
+                padding: 14px;
+                text-align: center;
+            }
+
+            .message-header {
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
+
+            /* Timer blocks - better spacing on mobile */
+            .timer-block {
+                min-width: 45px;
+                padding: 6px;
+            }
+
+            .timer-value {
+                font-size: 1.125rem;
+            }
+
+            .timer-label {
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding-top: 100px;
+            }
+
+            .dashboard-header {
+                text-align: center;
+            }
+
+            .dashboard-title {
+                font-size: 1.75rem;
+            }
+
+            .dashboard-subtitle {
+                font-size: 0.938rem;
+            }
+
+            .zone-title {
+                font-size: 1.25rem;
+            }
+
+            .bid-card-image {
+                height: 160px;
+            }
+
+            .timer-block {
+                min-width: 40px;
+                padding: 5px;
+            }
+
+            .timer-value {
+                font-size: 1rem;
+            }
+
+            .bid-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-rebid,
+            .btn-view-details {
+                width: 100%;
+            }
+
+            .watchlist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .financial-center {
+                gap: 20px;
+            }
+
+            .donut-chart {
+                width: 180px;
+                height: 180px;
+                margin-bottom: 16px;
+            }
+
+            .donut-total-value {
+                font-size: 1.5rem;
+            }
+
+            .legend-item {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Dashboard Header -->
+    <nav class="dashboard-navbar">
+        <div class="dashboard-navbar-container">
+            <!-- Left: Logo -->
+            <a href="index.html" class="dashboard-brand">
+                <img src="images/logo.svg" alt="Ankand Logo" class="dashboard-logo-icon">
+                <div class="dashboard-brand-text">
+                    <div class="dashboard-logo-text">Ankand</div>
+                    <div class="dashboard-tagline">Dashboard</div>
+                </div>
+            </a>
+
+            <!-- Right: User Actions -->
+            <div class="dashboard-actions">
+                <!-- Theme Toggle - Visible on desktop and mobile (outside menu) -->
+                <button class="dashboard-theme-toggle" id="dashboardThemeToggle" aria-label="Toggle dark mode">
+                    <i class="bi bi-sun-fill"></i>
+                </button>
+
+                <!-- User Info - Desktop Only -->
+                <div class="dashboard-user-info">
+                    <i class="bi bi-person-circle"></i>
+                    <span class="dashboard-username">Krish</span>
+                    <button class="dashboard-swap-btn" id="desktopSwapBtn" aria-label="Swap to Admin"
+                        title="Switch to Admin mode">
+                        <i class="bi bi-arrow-left-right"></i>
+                    </button>
+                </div>
+
+                <!-- Logout Button - Desktop Only -->
+                <a href="index.html" class="dashboard-logout-btn">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="dashboard-mobile-toggle" id="dashboardMobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="dashboard-mobile-menu" id="dashboardMobileMenu">
+            <div class="dashboard-mobile-user">
+                <i class="bi bi-person-circle"></i>
+                <div class="dashboard-mobile-user-content">
+                    <span>Krish</span>
+                    <button class="dashboard-swap-btn-mobile" id="mobileSwapBtn" aria-label="Swap to Admin"
+                        title="Switch to Admin mode">
+                        <i class="bi bi-arrow-left-right"></i>
+                        <span>Switch to Admin</span>
+                    </button>
+                </div>
+            </div>
+            <a href="index.html" class="dashboard-mobile-logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <div class="container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Welcome Back, <span class="text-gold">Krish</span></h1>
+                <p class="dashboard-subtitle">Manage your bids, track auctions, and stay updated on your activity</p>
+            </div>
+
+            <!-- ZONE 1 - Active Bidding Theater -->
+            <section class="dashboard-zone">
+                <div class="zone-header">
+                    <h2 class="zone-title">
+                        <i class="bi bi-hammer"></i>
+                        Active Bidding Theater
+                    </h2>
+                    <a href="live.html" class="zone-action">View All <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <div class="bid-carousel">
+                    <!-- Bid Card 1 - Winning -->
+                    <div class="bid-card winning">
+                        <div class="bid-card-image">
+                            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=450&fit=crop"
+                                alt="1965 Rolex Submariner">
+                            <span class="bid-status-badge badge-winning"><i class="bi bi-trophy-fill"></i>
+                                Winning</span>
+                            <div class="bid-timer">
+                                <div class="timer-block">
+                                    <span class="timer-value">02</span>
+                                    <span class="timer-label">Hrs</span>
+                                </div>
+                                <div class="timer-block">
+                                    <span class="timer-value">34</span>
+                                    <span class="timer-label">Min</span>
+                                </div>
+                                <div class="timer-block">
+                                    <span class="timer-value">18</span>
+                                    <span class="timer-label">Sec</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bid-card-body">
+                            <h3 class="bid-card-title">1965 Rolex Submariner</h3>
+                            <div class="bid-info">
+                                <div class="bid-price-section">
+                                    <div class="bid-label">Your Bid</div>
+                                    <div class="bid-amount">€12,500</div>
+                                </div>
+                                <div class="bid-count">23 bids</div>
+                            </div>
+                            <div class="bid-actions">
+                                <button class="btn-rebid">Increase Bid</button>
+                                <button class="btn-view-details">Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bid Card 2 - Outbid -->
+                    <div class="bid-card outbid">
+                        <div class="bid-card-image">
+                            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=450&fit=crop"
+                                alt="Abstract Expressionist Oil">
+                            <span class="bid-status-badge badge-outbid"><i class="bi bi-exclamation-triangle-fill"></i>
+                                Outbid!</span>
+                            <div class="bid-timer">
+                                <div class="timer-block">
+                                    <span class="timer-value">05</span>
+                                    <span class="timer-label">Hrs</span>
+                                </div>
+                                <div class="timer-block">
+                                    <span class="timer-value">12</span>
+                                    <span class="timer-label">Min</span>
+                                </div>
+                                <div class="timer-block">
+                                    <span class="timer-value">45</span>
+                                    <span class="timer-label">Sec</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bid-card-body">
+                            <h3 class="bid-card-title">Abstract Expressionist Oil</h3>
+                            <div class="bid-info">
+                                <div class="bid-price-section">
+                                    <div class="bid-label">Your Bid</div>
+                                    <div class="bid-amount">€8,200</div>
+                                </div>
+                                <div class="bid-count">Current: €8,350</div>
+                            </div>
+                            <div class="bid-actions">
+                                <button class="btn-rebid">Place Higher Bid</button>
+                                <button class="btn-view-details">Details</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bid Card 3 - Ending Soon -->
+                    <div class="bid-card ending-soon">
+                        <div class="bid-card-image">
+                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=450&fit=crop"
+                                alt="Art Deco Diamond Necklace">
+                            <span class="bid-status-badge badge-ending"><i class="bi bi-clock-fill"></i> Ending
+                                Soon</span>
+                            <div class="bid-timer">
+                                <div class="timer-block">
+                                    <span class="timer-value">00</span>
+                                    <span class="timer-label">Hrs</span>
+                                </div>
+                                <div class="timer-block">
+                                    <span class="timer-value">42</span>
+                                    <span class="timer-label">Min</span>
+                                </div>
+                                <div class="timer-block">
+                                    <span class="timer-value">09</span>
+                                    <span class="timer-label">Sec</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bid-card-body">
+                            <h3 class="bid-card-title">Art Deco Diamond Necklace</h3>
+                            <div class="bid-info">
+                                <div class="bid-price-section">
+                                    <div class="bid-label">Your Bid</div>
+                                    <div class="bid-amount">€24,800</div>
+                                </div>
+                                <div class="bid-count">31 bids</div>
+                            </div>
+                            <div class="bid-actions">
+                                <button class="btn-rebid">Increase Bid</button>
+                                <button class="btn-view-details">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ZONE 2 - Watchlist Gallery -->
+            <section class="dashboard-zone">
+                <div class="zone-header">
+                    <h2 class="zone-title">
+                        <i class="bi bi-star-fill"></i>
+                        Watchlist Gallery
+                    </h2>
+                    <a href="#" class="zone-action">Manage <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <div class="watchlist-grid">
+                    <!-- Watchlist Item 1 -->
+                    <div class="watchlist-item">
+                        <div class="watchlist-image">
+                            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=300&fit=crop"
+                                alt="Vintage Ferrari">
+                            <span class="price-change price-down"><i class="bi bi-arrow-down"></i> €5,000</span>
+                            <button class="remove-watchlist"><i class="bi bi-x"></i></button>
+                            <div class="time-remaining-bar" style="width: 65%;"></div>
+                        </div>
+                        <div class="watchlist-body">
+                            <h4 class="watchlist-title">1962 Ferrari 250 GTO</h4>
+                            <div class="watchlist-price">€485,000</div>
+                            <button class="btn-place-bid">Place Bid</button>
+                        </div>
+                    </div>
+
+                    <!-- Watchlist Item 2 -->
+                    <div class="watchlist-item">
+                        <div class="watchlist-image">
+                            <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&h=300&fit=crop"
+                                alt="Antique Vase">
+                            <span class="price-change price-up"><i class="bi bi-arrow-up"></i> €200</span>
+                            <button class="remove-watchlist"><i class="bi bi-x"></i></button>
+                            <div class="time-remaining-bar" style="width: 30%;"></div>
+                        </div>
+                        <div class="watchlist-body">
+                            <h4 class="watchlist-title">Ming Dynasty Vase</h4>
+                            <div class="watchlist-price">€15,200</div>
+                            <button class="btn-place-bid">Place Bid</button>
+                        </div>
+                    </div>
+
+                    <!-- Watchlist Item 3 -->
+                    <div class="watchlist-item">
+                        <div class="watchlist-image">
+                            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=300&fit=crop"
+                                alt="Emerald Ring">
+                            <button class="remove-watchlist"><i class="bi bi-x"></i></button>
+                            <div class="time-remaining-bar" style="width: 85%;"></div>
+                        </div>
+                        <div class="watchlist-body">
+                            <h4 class="watchlist-title">18K Emerald Ring</h4>
+                            <div class="watchlist-price">€8,750</div>
+                            <button class="btn-place-bid">Place Bid</button>
+                        </div>
+                    </div>
+
+                    <!-- Watchlist Item 4 -->
+                    <div class="watchlist-item">
+                        <div class="watchlist-image">
+                            <img src="https://images.unsplash.com/photo-1582721478779-0ae163c05a60?w=400&h=300&fit=crop"
+                                alt="Sculpture">
+                            <button class="remove-watchlist"><i class="bi bi-x"></i></button>
+                            <div class="time-remaining-bar" style="width: 50%;"></div>
+                        </div>
+                        <div class="watchlist-body">
+                            <h4 class="watchlist-title">Bronze Sculpture</h4>
+                            <div class="watchlist-price">€12,300</div>
+                            <button class="btn-place-bid">Place Bid</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ZONE 3 - Auction History River -->
+            <section class="dashboard-zone">
+                <div class="zone-header">
+                    <h2 class="zone-title">
+                        <i class="bi bi-clock-history"></i>
+                        Auction History River
+                    </h2>
+                    <a href="#" class="zone-action">View All <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <div class="history-timeline">
+                    <!-- Today -->
+                    <div class="timeline-day">
+                        <h3 class="timeline-date">Today</h3>
+
+                        <!-- Timeline Item 1 - Won -->
+                        <div class="timeline-item won">
+                            <div class="timeline-header">
+                                <span class="timeline-status won"><i class="bi bi-check-circle-fill"></i> Won</span>
+                            </div>
+                            <h4 class="timeline-title">1965 Rolex Submariner</h4>
+                            <div class="timeline-price">€12,500</div>
+                            <div class="timeline-meta">
+                                <span class="timeline-meta-item"><i class="bi bi-clock"></i> Ended 2 hours ago</span>
+                                <span class="timeline-meta-item"><i class="bi bi-hammer"></i> 23 bids</span>
+                            </div>
+                            <div class="timeline-actions">
+                                <button class="btn-timeline btn-primary-timeline">Complete Payment</button>
+                                <button class="btn-timeline btn-secondary-timeline">Download Receipt</button>
+                                <button class="btn-timeline btn-secondary-timeline">View Details</button>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 2 - Lost -->
+                        <div class="timeline-item lost">
+                            <div class="timeline-header">
+                                <span class="timeline-status lost"><i class="bi bi-x-circle-fill"></i> Lost</span>
+                            </div>
+                            <h4 class="timeline-title">Abstract Art Painting</h4>
+                            <div class="timeline-price">€8,350 (Outbid by €150)</div>
+                            <div class="timeline-meta">
+                                <span class="timeline-meta-item"><i class="bi bi-clock"></i> Ended 5 hours ago</span>
+                                <span class="timeline-meta-item"><i class="bi bi-hammer"></i> 15 bids</span>
+                                <span class="timeline-meta-item">Your bid: €8,200</span>
+                            </div>
+                            <div class="timeline-actions">
+                                <button class="btn-timeline btn-secondary-timeline">View Similar Items</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yesterday -->
+                    <div class="timeline-day">
+                        <h3 class="timeline-date">Yesterday</h3>
+
+                        <!-- Timeline Item 3 - Won with Payment -->
+                        <div class="timeline-item won">
+                            <div class="timeline-header">
+                                <span class="timeline-status won"><i class="bi bi-check-circle-fill"></i> Won &
+                                    Paid</span>
+                            </div>
+                            <h4 class="timeline-title">Diamond Necklace</h4>
+                            <div class="timeline-price">€24,800</div>
+                            <div class="timeline-meta">
+                                <span class="timeline-meta-item"><i class="bi bi-check2-all"></i> Payment
+                                    Completed</span>
+                                <span class="timeline-meta-item"><i class="bi bi-truck"></i> In Transit</span>
+                                <span class="timeline-meta-item">Tracking: DHL1234567</span>
+                            </div>
+                            <div class="timeline-actions">
+                                <button class="btn-timeline btn-primary-timeline">Track Shipment</button>
+                                <button class="btn-timeline btn-secondary-timeline">View Receipt</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ZONE 4 - Financial Command Center -->
+            <section class="dashboard-zone">
+                <div class="zone-header">
+                    <h2 class="zone-title">
+                        <i class="bi bi-wallet2"></i>
+                        Financial Command Center
+                    </h2>
+                </div>
+
+                <div class="financial-center">
+                    <!-- Left: Donut Chart -->
+                    <div class="financial-chart">
+                        <div class="donut-chart">
+                            <!-- SVG Donut Chart -->
+                            <svg viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+                                <!-- Paid (Green) - 86% -->
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="#22c55e" stroke-width="12"
+                                    stroke-dasharray="216.8 251.2" stroke-dashoffset="0" opacity="0.9"></circle>
+                                <!-- Pending (Yellow) - 14% -->
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="#FFB703" stroke-width="12"
+                                    stroke-dasharray="35.2 232.8" stroke-dashoffset="-216.8" opacity="0.9"></circle>
+                            </svg>
+                            <div class="donut-center">
+                                <div class="donut-total-label">Total Spent</div>
+                                <div class="donut-total-value">€52.3K</div>
+                            </div>
+                        </div>
+                        <div class="financial-legend">
+                            <div class="legend-item">
+                                <span class="legend-label">
+                                    <span class="legend-color" style="background: #22c55e;"></span>
+                                    Paid
+                                </span>
+                                <span class="legend-value">€45,200</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-label">
+                                    <span class="legend-color" style="background: #FFB703;"></span>
+                                    Pending
+                                </span>
+                                <span class="legend-value">€7,150</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-label">
+                                    <span class="legend-color" style="background: #3b82f6;"></span>
+                                    Refunds
+                                </span>
+                                <span class="legend-value">€0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Quick Actions -->
+                    <div class="financial-actions">
+                        <h3
+                            style="color: var(--text-primary); margin-bottom: 24px; font-size: 1.25rem; font-weight: 700;">
+                            Quick Actions</h3>
+
+                        <div class="quick-action">
+                            <div class="quick-action-content">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-credit-card"></i>
+                                </div>
+                                <div class="quick-action-text">
+                                    <h4>Pay Pending Balance</h4>
+                                    <p>€7,150 awaiting payment</p>
+                                </div>
+                            </div>
+                            <i class="bi bi-arrow-right quick-action-arrow"></i>
+                        </div>
+
+                        <div class="quick-action">
+                            <div class="quick-action-content">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-file-earmark-text"></i>
+                                </div>
+                                <div class="quick-action-text">
+                                    <h4>View Payment History</h4>
+                                    <p>See all transactions</p>
+                                </div>
+                            </div>
+                            <i class="bi bi-arrow-right quick-action-arrow"></i>
+                        </div>
+
+                        <div class="quick-action">
+                            <div class="quick-action-content">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-wallet2"></i>
+                                </div>
+                                <div class="quick-action-text">
+                                    <h4>Update Payment Method</h4>
+                                    <p>Manage payment options</p>
+                                </div>
+                            </div>
+                            <i class="bi bi-arrow-right quick-action-arrow"></i>
+                        </div>
+
+                        <div class="quick-action">
+                            <div class="quick-action-content">
+                                <div class="quick-action-icon">
+                                    <i class="bi bi-receipt"></i>
+                                </div>
+                                <div class="quick-action-text">
+                                    <h4>Request Invoice</h4>
+                                    <p>Download official receipts</p>
+                                </div>
+                            </div>
+                            <i class="bi bi-arrow-right quick-action-arrow"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- ZONE 5 - Communication Dock -->
+    <div class="communication-dock" id="communicationDock">
+        <div class="dock-header" onclick="toggleDock()">
+            <div class="dock-title">
+                <i class="bi bi-chat-dots-fill"></i>
+                Messages & Notifications
+                <span class="notification-count">19</span>
+            </div>
+            <i class="bi bi-chevron-up dock-toggle"></i>
+        </div>
+
+        <div class="dock-content">
+            <div class="dock-tabs">
+                <button class="dock-tab active" onclick="switchTab('messages')">Messages (2)</button>
+                <button class="dock-tab" onclick="switchTab('support')">Support (1)</button>
+                <button class="dock-tab" onclick="switchTab('alerts')">Alerts (5)</button>
+                <button class="dock-tab" onclick="switchTab('notifications')">Bids (12)</button>
+            </div>
+
+            <div class="dock-messages" id="dockMessages">
+                <!-- Message 1 -->
+                <div class="message-item unread">
+                    <div class="message-header">
+                        <span class="message-sender"><i class="bi bi-person-circle"></i> Seller: Art Gallery
+                            Milano</span>
+                        <span class="message-time">5 min ago</span>
+                    </div>
+                    <p class="message-preview">Thank you for your interest in the Abstract Expressionist Oil painting. I
+                        can provide additional provenance documents...</p>
+                </div>
+
+                <!-- Message 2 -->
+                <div class="message-item">
+                    <div class="message-header">
+                        <span class="message-sender"><i class="bi bi-headset"></i> Ankand Support</span>
+                        <span class="message-time">2 hours ago</span>
+                    </div>
+                    <p class="message-preview">Your payment for the Diamond Necklace has been processed successfully.
+                        You will receive shipment details within 24 hours.</p>
+                </div>
+
+                <!-- Message 3 -->
+                <div class="message-item">
+                    <div class="message-header">
+                        <span class="message-sender"><i class="bi bi-bell-fill"></i> Bid Alert</span>
+                        <span class="message-time">3 hours ago</span>
+                    </div>
+                    <p class="message-preview">You've been outbid on "Abstract Expressionist Oil" - Current bid: €8,350.
+                        Time remaining: 5 hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+
+    <script>
+        // ===== DASHBOARD NAVBAR FUNCTIONALITY =====
+
+        // Mobile Menu Toggle
+        const dashboardMobileToggle = document.getElementById('dashboardMobileToggle');
+        const dashboardMobileMenu = document.getElementById('dashboardMobileMenu');
+
+        if (dashboardMobileToggle) {
+            dashboardMobileToggle.addEventListener('click', function () {
+                dashboardMobileToggle.classList.toggle('active');
+                dashboardMobileMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const isClickInsideNav = event.target.closest('.dashboard-navbar');
+            if (!isClickInsideNav && dashboardMobileMenu && dashboardMobileMenu.classList.contains('active')) {
+                dashboardMobileMenu.classList.remove('active');
+                dashboardMobileToggle.classList.remove('active');
+            }
+        });
+
+        // Dashboard Theme Toggle - Sync with existing theme system
+        const dashboardThemeToggle = document.getElementById('dashboardThemeToggle');
+
+        if (dashboardThemeToggle) {
+            dashboardThemeToggle.addEventListener('click', function () {
+                document.body.classList.toggle('light-mode');
+
+                // Update icon
+                const icon = dashboardThemeToggle.querySelector('i');
+                if (document.body.classList.contains('light-mode')) {
+                    icon.classList.remove('bi-sun-fill');
+                    icon.classList.add('bi-moon-fill');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    icon.classList.remove('bi-moon-fill');
+                    icon.classList.add('bi-sun-fill');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        }
+
+        // Initialize theme from localStorage on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const savedTheme = localStorage.getItem('theme');
+            const icon = dashboardThemeToggle?.querySelector('i');
+
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                if (icon) {
+                    icon.classList.remove('bi-sun-fill');
+                    icon.classList.add('bi-moon-fill');
+                }
+            } else {
+                document.body.classList.remove('light-mode');
+                if (icon) {
+                    icon.classList.remove('bi-moon-fill');
+                    icon.classList.add('bi-sun-fill');
+                }
+            }
+        });
+
+        // ===== USER/ADMIN SWAP FUNCTIONALITY =====
+
+        // Track current mode (default is user)
+        let currentMode = localStorage.getItem('dashboardMode') || 'user';
+
+        // Function to update UI based on mode
+        function updateModeUI(mode) {
+            const desktopUsername = document.querySelector('.dashboard-user-info .dashboard-username');
+            const mobileUsername = document.querySelector('.dashboard-mobile-user-content > span');
+            const desktopSwapBtn = document.getElementById('desktopSwapBtn');
+            const mobileSwapBtn = document.getElementById('mobileSwapBtn');
+
+            if (mode === 'admin') {
+                // Update to Admin mode
+                if (desktopUsername) desktopUsername.textContent = 'Admin';
+                if (mobileUsername) mobileUsername.textContent = 'Admin';
+                if (desktopSwapBtn) {
+                    desktopSwapBtn.setAttribute('title', 'Switch to User mode');
+                    desktopSwapBtn.setAttribute('aria-label', 'Swap to User');
+                }
+                if (mobileSwapBtn) {
+                    mobileSwapBtn.setAttribute('title', 'Switch to User mode');
+                    mobileSwapBtn.setAttribute('aria-label', 'Swap to User');
+                    const mobileSwapText = mobileSwapBtn.querySelector('span');
+                    if (mobileSwapText) mobileSwapText.textContent = 'Switch to User';
+                }
+
+                // Update person icon to shield (admin icon)
+                document.querySelectorAll('.dashboard-user-info i.bi-person-circle, .dashboard-mobile-user i.bi-person-circle').forEach(icon => {
+                    icon.classList.remove('bi-person-circle');
+                    icon.classList.add('bi-shield-fill-check');
+                });
+            } else {
+                // Update to User mode
+                if (desktopUsername) desktopUsername.textContent = 'Krish';
+                if (mobileUsername) mobileUsername.textContent = 'Krish';
+                if (desktopSwapBtn) {
+                    desktopSwapBtn.setAttribute('title', 'Switch to Admin mode');
+                    desktopSwapBtn.setAttribute('aria-label', 'Swap to Admin');
+                }
+                if (mobileSwapBtn) {
+                    mobileSwapBtn.setAttribute('title', 'Switch to Admin mode');
+                    mobileSwapBtn.setAttribute('aria-label', 'Swap to Admin');
+                    const mobileSwapText = mobileSwapBtn.querySelector('span');
+                    if (mobileSwapText) mobileSwapText.textContent = 'Switch to Admin';
+                }
+
+                // Update shield icon back to person
+                document.querySelectorAll('.dashboard-user-info i.bi-shield-fill-check, .dashboard-mobile-user i.bi-shield-fill-check').forEach(icon => {
+                    icon.classList.remove('bi-shield-fill-check');
+                    icon.classList.add('bi-person-circle');
+                });
+            }
+        }
+
+        // Function to show custom confirmation modal
+        function showSwapConfirmation(targetMode) {
+            const modeText = targetMode === 'admin' ? 'Admin' : 'User';
+            const message = targetMode === 'admin'
+                ? 'Do you want to switch to Admin mode? You will have access to administrative features.'
+                : 'Do you want to switch back to User mode?';
+
+            // Create custom modal
+            const modalHTML = `
+                <div class="swap-modal-overlay" id="swapModalOverlay">
+                    <div class="swap-modal">
+                        <div class="swap-modal-header">
+                            <i class="bi bi-arrow-left-right"></i>
+                            <h3>Switch to ${modeText} Mode</h3>
+                        </div>
+                        <div class="swap-modal-body">
+                            <p>${message}</p>
+                        </div>
+                        <div class="swap-modal-footer">
+                            <button class="swap-modal-btn swap-modal-cancel" id="swapCancelBtn">Cancel</button>
+                            <button class="swap-modal-btn swap-modal-confirm" id="swapConfirmBtn">Switch to ${modeText}</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add modal to body
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+            // Get modal elements
+            const overlay = document.getElementById('swapModalOverlay');
+            const confirmBtn = document.getElementById('swapConfirmBtn');
+            const cancelBtn = document.getElementById('swapCancelBtn');
+
+            // Show modal with animation
+            setTimeout(() => overlay.classList.add('active'), 10);
+
+            // Handle confirmation
+            confirmBtn.addEventListener('click', function () {
+                if (targetMode === 'admin') {
+                    // Redirect to admin dashboard
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    // Just update UI for user mode (already on user dashboard)
+                    currentMode = targetMode;
+                    localStorage.setItem('dashboardMode', currentMode);
+                    updateModeUI(currentMode);
+                    closeModal();
+                }
+            });
+
+            // Handle cancellation
+            cancelBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) closeModal();
+            });
+
+            function closeModal() {
+                overlay.classList.remove('active');
+                setTimeout(() => overlay.remove(), 300);
+            }
+        }
+
+        // Desktop swap button click handler
+        const desktopSwapBtn = document.getElementById('desktopSwapBtn');
+        if (desktopSwapBtn) {
+            desktopSwapBtn.addEventListener('click', function () {
+                const targetMode = currentMode === 'user' ? 'admin' : 'user';
+                showSwapConfirmation(targetMode);
+            });
+        }
+
+        // Mobile swap button click handler
+        const mobileSwapBtn = document.getElementById('mobileSwapBtn');
+        if (mobileSwapBtn) {
+            mobileSwapBtn.addEventListener('click', function () {
+                const targetMode = currentMode === 'user' ? 'admin' : 'user';
+                showSwapConfirmation(targetMode);
+            });
+        }
+
+        // Initialize mode on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            updateModeUI(currentMode);
+        });
+
+        // ===== EXISTING DASHBOARD SCRIPTS =====
+
+        // Communication Dock Toggle
+        function toggleDock() {
+            const dock = document.getElementById('communicationDock');
+            const scrollBtn = document.querySelector('.scroll-to-top');
+
+            dock.classList.toggle('expanded');
+
+            // Scroll to top smoothly when dock opens or closes
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+            // Update button position immediately, during animation, and after animation
+            updateScrollButtonPosition(dock, scrollBtn);
+
+            // Update again after animation completes (300ms is typical transition time)
+            setTimeout(() => {
+                updateScrollButtonPosition(dock, scrollBtn);
+            }, 350);
+
+            // Final update to ensure perfect positioning
+            setTimeout(() => {
+                updateScrollButtonPosition(dock, scrollBtn);
+            }, 600);
+        }
+
+        // Function to update scroll button position
+        function updateScrollButtonPosition(dock, scrollBtn) {
+            if (!scrollBtn) return;
+
+            // Use requestAnimationFrame for smooth updates
+            requestAnimationFrame(() => {
+                if (!dock) {
+                    dock = document.getElementById('communicationDock');
+                }
+
+                const dockHeader = dock ? dock.querySelector('.dock-header') : document.querySelector('.dock-header');
+
+                if (dockHeader) {
+                    // Get the actual position of the dock header
+                    const dockRect = dockHeader.getBoundingClientRect();
+                    const distanceFromBottom = window.innerHeight - dockRect.top;
+
+                    // Position button 15px above the dock header for better visibility
+                    const buttonBottom = Math.max(distanceFromBottom + 15, 70);
+
+                    scrollBtn.style.bottom = buttonBottom + 'px';
+                    scrollBtn.style.transition = 'bottom 0.3s ease';
+                    scrollBtn.style.position = 'fixed';
+                    scrollBtn.style.zIndex = '999';
+                } else {
+                    // Fallback positioning if dock header not found
+                    const fallbackBottom = window.innerWidth <= 576 ? '90px' : '100px';
+                    scrollBtn.style.bottom = fallbackBottom;
+                    scrollBtn.style.transition = 'bottom 0.3s ease';
+                }
+            });
+        }
+
+        // Initialize scroll button position on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const dock = document.getElementById('communicationDock');
+            const scrollBtn = document.querySelector('.scroll-to-top');
+
+            // Set initial position
+            if (scrollBtn && dock) {
+                updateScrollButtonPosition(dock, scrollBtn);
+            }
+
+            // Update on window resize
+            window.addEventListener('resize', () => {
+                if (scrollBtn && dock) {
+                    updateScrollButtonPosition(dock, scrollBtn);
+                }
+            });
+
+            // Update on scroll to maintain consistent position
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (scrollBtn && dock) {
+                        updateScrollButtonPosition(dock, scrollBtn);
+                    }
+                }, 50); // Debounce scroll events
+            });
+
+            // Also update periodically to catch any layout changes
+            setInterval(() => {
+                if (scrollBtn && dock) {
+                    updateScrollButtonPosition(dock, scrollBtn);
+                }
+            }, 2000); // Check every 2 seconds
+        });
+
+        // Dock Tab Switching
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.dock-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // In a real implementation, this would load different content
+            console.log('Switched to tab:', tabName);
+        }
+
+        // Simulate live timer updates
+        function updateTimers() {
+            const timerBlocks = document.querySelectorAll('.bid-timer');
+            timerBlocks.forEach(timer => {
+                const seconds = timer.querySelector('.seconds .timer-value');
+                if (seconds) {
+                    let currentSeconds = parseInt(seconds.textContent);
+                    currentSeconds = currentSeconds > 0 ? currentSeconds - 1 : 59;
+                    seconds.textContent = currentSeconds.toString().padStart(2, '0');
+                }
+            });
+        }
+
+        // Update timers every second
+        setInterval(updateTimers, 1000);
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.dashboard-zone').forEach(zone => {
+            zone.style.opacity = '0';
+            zone.style.transform = 'translateY(20px)';
+            zone.style.transition = 'all 0.6s ease';
+            observer.observe(zone);
+        });
+    </script>
+</body>
+
+</html>

@@ -166,6 +166,10 @@ h6 {
   font-weight: 600;
   line-height: 1.2;
   color: var(--text-primary);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
 }
 
 h1 {
@@ -182,6 +186,12 @@ h3 {
 
 h4 {
   font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+}
+
+p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .text-gold {
