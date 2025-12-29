@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="sq">
 
 <head>
@@ -555,11 +555,13 @@
       position: relative;
       max-width: 1200px;
       margin: 0 auto;
+      width: 100%;
     }
 
     .testimonials-carousel-container {
       overflow: hidden;
       position: relative;
+      width: 100%;
     }
 
     .testimonials-carousel-track {
@@ -572,11 +574,58 @@
       flex: 0 0 calc(50% - var(--space-lg));
       margin-right: var(--space-xl);
       min-width: 0;
+      box-sizing: border-box;
     }
 
     @media (max-width: 768px) {
+      .immersive-testimonials-content {
+        width: 100%;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .testimonials-carousel-wrapper {
+        padding: 0;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .testimonials-carousel-container {
+        overflow: hidden !important;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        position: relative;
+      }
+
+      .testimonials-carousel-track {
+        align-items: flex-start;
+        width: 100%;
+        display: flex;
+      }
+
       .testimonials-carousel-slide {
-        flex: 0 0 100%;
+        flex: 0 0 100% !important;
+        height: auto;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 0;
+        box-sizing: border-box;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        flex-shrink: 0;
+      }
+
+      .immersive-testimonial-card {
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow: visible;
       }
     }
 
@@ -588,6 +637,9 @@
       position: relative;
       transition: transform var(--transition-base), box-shadow var(--transition-base);
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
     }
 
     .immersive-testimonial-card:hover {
@@ -895,6 +947,24 @@
 
       .immersive-testimonial-card {
         padding: var(--space-xl);
+        height: auto;
+        min-height: auto;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .immersive-testimonial-quote {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: var(--space-lg);
+      }
+
+      .testimonials-carousel-container {
+        overflow: hidden;
+      }
+
+      .testimonials-carousel-wrapper {
+        overflow: hidden;
       }
 
       .horizontal-collection-header {
@@ -945,7 +1015,6 @@
         line-height: 1.2;
         word-wrap: break-word;
         overflow-wrap: break-word;
-        hyphens: auto;
       }
 
       .immersive-description {
@@ -1045,7 +1114,6 @@
     .immersive-newsletter-content h2 {
       word-wrap: break-word;
       overflow-wrap: break-word;
-      hyphens: auto;
       max-width: 100%;
     }
 
@@ -1668,8 +1736,15 @@
         resetAutoRotate();
       }
 
+      function isMobile() {
+        return window.innerWidth <= 768;
+      }
+
       function startAutoRotate() {
-        autoRotateInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        // Only start auto-rotate on desktop, not mobile
+        if (!isMobile()) {
+          autoRotateInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
       }
 
       function resetAutoRotate() {
@@ -1684,6 +1759,8 @@
           totalGroups = Math.ceil(totalSlides / slidesPerView);
           currentIndex = 0;
           updateCarousel();
+          // Restart auto-rotate if switching to desktop, stop if switching to mobile
+          resetAutoRotate();
         }
       }
 
@@ -1691,9 +1768,17 @@
       nextBtn.addEventListener('click', nextSlide);
       prevBtn.addEventListener('click', prevSlide);
 
-      // Pause on hover
-      carousel.addEventListener('mouseenter', () => clearInterval(autoRotateInterval));
-      carousel.addEventListener('mouseleave', startAutoRotate);
+      // Pause on hover (desktop only)
+      carousel.addEventListener('mouseenter', () => {
+        if (!isMobile()) {
+          clearInterval(autoRotateInterval);
+        }
+      });
+      carousel.addEventListener('mouseleave', () => {
+        if (!isMobile()) {
+          startAutoRotate();
+        }
+      });
 
       // Handle window resize
       window.addEventListener('resize', handleResize);
