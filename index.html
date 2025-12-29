@@ -99,6 +99,49 @@
         padding: var(--space-lg);
       }
     }
+
+    /* Testimonials Section - Prevent Overflow */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+      gap: var(--space-xl);
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .testimonial-card {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .testimonial-quote {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      max-width: 100%;
+    }
+
+    .testimonial-author {
+      flex-wrap: wrap;
+      max-width: 100%;
+    }
+
+    .author-name,
+    .author-title {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+      }
+    }
   </style>
 </head>
 
